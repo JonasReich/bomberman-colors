@@ -3,7 +3,7 @@ Colorized ASCII Interpreter for MD.H Bomberman Exercise
 
 ![](screenshot.png)
 
-The directory structure and base of the project were copied from Jakob Thomsens and Christoph Minnameiers
+The directory structure and base of the project were copied from Jakob Thomsen's and Christoph Minnameier's
 bomberman AI exercise at [Mediadesign University of Applied Sciences](http://www.mediadesign.de/).
 
 The main project source code, C++ project, compiled executables and ppm-maps are in the 'bomber_clone_tcp' directory.
