@@ -1,6 +1,8 @@
 # bomberman-colors
 Colorized ASCII Interpreter for MD.H Bomberman Exercise
 
+![](screenshot.png)
+
 The directory structure and base of the project were copied from Jakob Thomsens and Christoph Minnameiers
 bomberman AI exercise at [Mediadesign University of Applied Sciences](http://www.mediadesign.de/).
 
@@ -17,9 +19,10 @@ All of these are in the 'bomber_clone_tcp' directory:
 | all_maps.bat      | Launches the server and client with all available maps in succession |
 | server_client.bat | Launches client and server with my custom "Dijkstra" map             |
 
-## Custom Map
+## Dijkstra Map
 I've added a [custom map](bomber_clone_tcp/dat/dijkstra.ppm) to specifically test bots for correct
 implementation of Dijkstra pathfinding.
+![](bomber_clone_tcp/dat/dijkstra.png)
 
 ## Source Code
 All custom code - that is code added or modified by the student or not included in the original
