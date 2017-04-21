@@ -7,9 +7,9 @@
 class CUnitManager
 {
 public:
-    std::pair<unsigned int, unsigned int> GetHeroPosition(unsigned int Player) const;
+	std::pair<unsigned int, unsigned int> GetHeroPosition(unsigned int playerIndex)const;
 
-	unsigned int CountPlayerUnits(unsigned int Player, UnitType Type) const;
+    unsigned int CountPlayerUnits(unsigned int Player, UnitType Type) const;
     std::vector<CUnit> GetPlayerUnits(unsigned int Player, UnitType Type) const;
 
     unsigned int CountPlayerUnitsOnTile(unsigned int Player, UnitType Type, unsigned int x, unsigned int y) const;

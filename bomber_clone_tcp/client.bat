@@ -1,1 +1,1 @@
-start bin\Release\bomber_clone_client\bomber_clone_client 172.16.115.23 2000 bot clear
+start bin\Release\bomber_clone_client\bomber_clone_client localhost 2000 bot clear

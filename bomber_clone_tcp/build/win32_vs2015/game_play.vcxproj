@@ -22,9 +22,9 @@
     <ClCompile Include="..\..\src\gameplay\level_grid.cpp" />
     <ClCompile Include="..\..\src\gameplay\local_state.cpp" />
     <ClCompile Include="..\..\src\gameplay\player.cpp" />
-    <ClCompile Include="..\..\src\gameplay\unit_manager.cpp" />
     <ClCompile Include="..\..\src\gameplay\tile.cpp" />
     <ClCompile Include="..\..\src\gameplay\unit.cpp" />
+    <ClCompile Include="..\..\src\gameplay\unit_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\custom\color_debug.h" />
@@ -39,9 +39,9 @@
     <ClInclude Include="..\..\src\gameplay\level_grid.h" />
     <ClInclude Include="..\..\src\gameplay\local_state.h" />
     <ClInclude Include="..\..\src\gameplay\player.h" />
-    <ClInclude Include="..\..\src\gameplay\unit_manager.h" />
     <ClInclude Include="..\..\src\gameplay\tile.h" />
     <ClInclude Include="..\..\src\gameplay\unit.h" />
+    <ClInclude Include="..\..\src\gameplay\unit_manager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3C1664D4-8554-4E8B-A56B-92048177750F}</ProjectGuid>
