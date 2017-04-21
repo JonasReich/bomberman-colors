@@ -1,0 +1,10 @@
+.svn
+sandbox
+tmp/
+bin/
+.vs
+*.VC.db
+*.VC.opendb
+Debug/
+
+*.orig
