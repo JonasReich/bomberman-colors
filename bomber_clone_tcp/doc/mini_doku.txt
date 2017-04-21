@@ -1,0 +1,42 @@
+im Verzeichnis bin\Release\bomber_clone_server
+Server starten:
+bomber_clone_server.exe LEVEL ANZAHL_CLIENTS PORT
+z.B.
+bomber_clone_server.exe ..\..\..\dat\butterfly.ppm 1 2000
+
+Symbole:
+## Mauer
+:: zerstörbar
+++ mehr Bomben Upgrade
+<> größere Explosionen Upgrade
+%% Explosion
+[] 
+00 Spieler 0
+11 Spieler 1
+22 Spieler 2
+33 Spieler 3
+
+im Verzeichnis bin\Release\bomber_clone_client
+Client starten:
+bomber_clone_server.exe SERVER_IP SERVER_PORT
+z.B.
+bomber_clone_server.exe localhost 2000
+
+Tasten:
+ENTER (nichts tun)
+w ENTER, a ENTER, s ENTER, d ENTER (bewegen)
+f ENTER (bombe legen)
+
+
+Level-format: PPM (Portable Pixmap Bilder, ASCII)
+https://en.wikipedia.org/wiki/Netpbm_format#PPM_example
+Farbcodes:
+Schwarz (0, 0, 0): begehbar
+Weiß (255,255,255): Wand
+Grau (127, 127, 127): zerstörbar
+Rot (255, 0, 0): Size-Upgrade
+Blau (0, 0, 255): Nr-Upgrade
+Grün (0, 255, 0): Trap (nicht gezündet)
+Gelb (255, 255, 0): Bomb (gezündet)
+Editieren z.B. mit Gimp https://www.gimp.org/downloads/
+Speichern: Exportieren als PPM, ASCII

@@ -1,0 +1,11 @@
+Bomber-Clone FAQ
+----------------
+
+Bot explodiert NICHT, wenn er in Explosion REINLÄUFT.
+Bot explodiert, wenn er aus Explosion RAUSLÄUFT.
+
+TRAP kann nur gelegt werden, wenn Bot mindestens eine weitere Bombe legen kann.
+
+Explodierende Bombe zündet alle Bomben und Traps mit einer Runde Verzögerung.
+
+Reichweite der Bombe wird durch Upgrade-Stand bei Explosion bestimmt.
