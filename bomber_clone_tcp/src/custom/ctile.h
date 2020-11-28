@@ -2,8 +2,8 @@
 #include <queue>
 #include <iostream>
 #include <sstream>
-#include "../gameplay//level_grid.h"
 #include "defines.h"
+#include "level_grid.h"
 
 
 struct Tile {

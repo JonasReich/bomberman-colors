@@ -3,8 +3,8 @@
 
 #include <vector>
 
-#include "../gameplay/player.h"
-#include "../gameplay/game_state.h"
+#include "player.h"
+#include "game_state.h"
 
 class CGameLog
 {

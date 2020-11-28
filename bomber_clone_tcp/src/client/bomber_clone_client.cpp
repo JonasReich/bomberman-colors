@@ -5,16 +5,16 @@
 
 #include <windows.h>
 
-#include "../network/net_shared.h"
+#include "net_shared.h"
 
-#include "../gameplay/game_play.h"
-#include "../gameplay/game_state.h"
-#include "../gameplay/game_state_io.h"
-#include "../gameplay/game_io.h"
-#include "../gameplay/game_sim.h"
-#include "../custom/ctile.h"
+#include "game_play.h"
+#include "game_state.h"
+#include "game_state_io.h"
+#include "game_io.h"
+#include "game_sim.h"
+#include "ctile.h"
 
-#include "../custom/color_debug.h"
+#include "color_debug.h"
 
 // MUST BE SAME AS SERVER BUFFER-SIZE
 // IN CASE Of CRASH RECOMPILE & CHECK FOR OVERFLOW

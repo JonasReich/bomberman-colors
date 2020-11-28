@@ -1,9 +1,9 @@
 #ifndef GAME_SIM_H
 #define GAME_SIM_H
 
-#include "../gameplay/game_state.h"
-#include "../gameplay/player.h"
-#include "../gameplay/game_play.h"
+#include "game_state.h"
+#include "player.h"
+#include "game_play.h"
 
 class CGameSim
 {

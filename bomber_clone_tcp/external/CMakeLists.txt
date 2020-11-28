@@ -33,6 +33,6 @@ set_target_properties(sdl2net PROPERTIES
 target_link_libraries(sdl2net INTERFACE sdl2)
 
 ### Export aliases to the three libs in here:
-add_library(external::sdl2 ALIAS sdl2)
-add_library(external::sdl2net ALIAS sdl2net)
+add_library(external::sdl2     ALIAS sdl2)
+add_library(external::sdl2net  ALIAS sdl2net)
 add_library(external::sdl2main ALIAS sdl2main)

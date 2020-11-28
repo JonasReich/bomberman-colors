@@ -3,7 +3,7 @@
 
 #include <ostream>
 
-#include "../custom/ctile.h"
+#include "ctile.h"
 
 // -----------------------------------------
 // DBOUT is a debug alternative to std::cout that is removed in release builds

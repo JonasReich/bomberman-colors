@@ -5,16 +5,16 @@
 #include <sstream>
 #include <map>
 
-#include "../network/net_shared.h"
+#include "net_shared.h"
 
 #include "game_server.h"
 
-#include "../gameplay/game_io.h"
-#include "../gameplay/game_play.h"
-#include "../gameplay/game_sim.h"
-#include "../gameplay/game_state.h"
-#include "../gameplay/game_state_io.h"
-#include "../gameplay/player.h"
+#include "game_io.h"
+#include "game_play.h"
+#include "game_sim.h"
+#include "game_state.h"
+#include "game_state_io.h"
+#include "player.h"
 
 #include "sleep.h"
 

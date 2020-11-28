@@ -5,7 +5,7 @@
 
 #include "game_log.h"
 
-#include "../gameplay/game_io.h"
+#include "game_io.h"
 
 const char *const CGameLog::s_Version = "BC_0.0.0";
 

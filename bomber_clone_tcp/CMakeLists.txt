@@ -9,7 +9,7 @@ message("platform: ${CMAKE_GENERATOR_PLATFORM}")
 add_subdirectory(external)
 
 add_library(gameplay STATIC)
-target_include_directories(gameplay PUBLIC ${CMAKE_SOURCE_DIRECTORY}/src/gameplay)
+target_include_directories(gameplay PUBLIC ${CMAKE_SOURCE_DIR}/src/gameplay)
 target_sources(gameplay PRIVATE
     ${CMAKE_SOURCE_DIR}/src/gameplay/array2d.cpp
     ${CMAKE_SOURCE_DIR}/src/gameplay/game_io.cpp
@@ -27,7 +27,7 @@ target_sources(gameplay PRIVATE
 )
 
 add_library(network STATIC)
-target_include_directories(network PUBLIC ${CMAKE_SOURCE_DIR}/src/network/)
+target_include_directories(network PUBLIC ${CMAKE_SOURCE_DIR}/src/network)
 target_sources(network PRIVATE
      ${CMAKE_SOURCE_DIR}/src/network/address.cpp
      ${CMAKE_SOURCE_DIR}/src/network/net_shared.cpp
@@ -39,10 +39,11 @@ target_include_directories(custom PUBLIC ${CMAKE_SOURCE_DIR}/src/custom)
 target_sources(custom PRIVATE
      ${CMAKE_SOURCE_DIR}/src/custom/color_debug.cpp
 )
+target_link_libraries(custom PUBLIC gameplay)
 
 add_executable(bomber_clone_client ${CMAKE_SOURCE_DIR}/src/client/bomber_clone_client.cpp)
-target_include_directories(bomber_clone_client PRIVATE ${CMAKE_SOURCE_DIR}/src/client)
-target_link_libraries(bomber_clone_client gameplay custom network external::sdl2main user32 advapi32 winmm)
+target_include_directories(bomber_clone_client PUBLIC ${CMAKE_SOURCE_DIR}/src/client)
+target_link_libraries(bomber_clone_client custom network external::sdl2main user32 advapi32 winmm)
 set_target_properties(bomber_clone_client PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin
 )

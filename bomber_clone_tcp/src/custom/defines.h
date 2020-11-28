@@ -1,5 +1,5 @@
 #pragma once
-#include "../gameplay/game_play.h"
+#include "game_play.h"
 
 enum EDirection {
 	kDirection_Up,
