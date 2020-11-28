@@ -26,5 +26,5 @@ TileDebugger& TileDebugger::Instance() {
 
 TileDebugger::TileDebugger() {}
 TileDebugger::~TileDebugger() {}
-TileDebugger::TileDebugger(const TileDebugger&) {};
-TileDebugger & TileDebugger::operator = (const TileDebugger &) {};
+TileDebugger::TileDebugger(const TileDebugger&) {}
+TileDebugger & TileDebugger::operator = (const TileDebugger & TD) { return *this; }

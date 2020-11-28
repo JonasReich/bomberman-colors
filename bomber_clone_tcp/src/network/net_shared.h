@@ -3,18 +3,8 @@
 
 #include <string>
 
-#include "../../../external/SDL2-2.0.5/include/SDL.h"
-#include "../../../external/SDL2_net-2.0.1/include/SDL_net.h"
-
-#ifdef WIN32
-#define LIBDIR_SDL "../../../external/SDL2-2.0.5/lib/x86/"
-
-#pragma comment(lib, LIBDIR_SDL "SDL2.lib")
-#pragma comment(lib, LIBDIR_SDL "SDL2main.lib")
-
-#define LIBDIR_SDL_NET "../../../external/SDL2_net-2.0.1/lib/x86/"
-#pragma comment(lib, LIBDIR_SDL_NET "SDL2_net.lib")
-#endif
+#include "SDL.h"
+#include "SDL_net.h"
 
 class CNet
 {

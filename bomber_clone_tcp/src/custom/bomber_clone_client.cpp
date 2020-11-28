@@ -2,14 +2,14 @@
 #include <ctime>
 #include <stdlib.h>
 
+#include "ctile.h"
+
 #include "../network/net_shared.h"
 
 #include "../gameplay/game_play.h"
 #include "../gameplay/game_state.h"
 #include "../gameplay/game_state_io.h"
 #include "../gameplay/game_io.h"
-
-#include "BreadthFirstSearch.h"
 
 // MUST BE SAME AS SERVER BUFFER-SIZE
 // IN CASE Of CRASH RECOMPILE & CHECK FOR OVERFLOW

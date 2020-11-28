@@ -2,7 +2,8 @@
 #include <ctime>
 #include <stdlib.h>
 #include <functional>
-#include <consoleapi.h>
+
+#include <windows.h>
 
 #include "../network/net_shared.h"
 
@@ -19,7 +20,8 @@
 // IN CASE Of CRASH RECOMPILE & CHECK FOR OVERFLOW
 #define BUFFER_SIZE 100000
 
-int main(int argc, char **argv)
+//int main(int argc, char **argv)
+int main (int argc, char *argv[])
 {
 	srand((unsigned int)time(0));
 	// Check for parameters
@@ -120,7 +122,7 @@ int main(int argc, char **argv)
 
 		// Don't print uncolored playfield in "bot mode"
 		if(Behaviour != "bot")
-			CGameIO::ASCIIExport(State);
+			CGameIO::ASCIIExport(State, true);
 
 		std::cout << "Server round: " << Global.m_Round << " cycle: " << Global.m_Cycle << "\n";
 		std::cout << "I'm player " << Local.m_PlayerNr;

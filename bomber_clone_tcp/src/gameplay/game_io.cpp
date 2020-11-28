@@ -3,7 +3,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <consoleapi.h>
+
+#include <windows.h>
 
 #include "game_io.h"
 #include "../custom/vectorExtensions.h"
