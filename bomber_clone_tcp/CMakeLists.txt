@@ -9,35 +9,36 @@ message("platform: ${CMAKE_GENERATOR_PLATFORM}")
 add_subdirectory(external)
 
 add_library(gameplay STATIC)
-target_include_directories(gameplay PUBLIC ${CMAKE_SOURCE_DIR}/src/gameplay)
+target_include_directories(gameplay PUBLIC ${CMAKE_SOURCE_DIR}/src/gameplay/public)
 target_sources(gameplay PRIVATE
-    ${CMAKE_SOURCE_DIR}/src/gameplay/array2d.cpp
-    ${CMAKE_SOURCE_DIR}/src/gameplay/game_io.cpp
-    ${CMAKE_SOURCE_DIR}/src/gameplay/game_play.cpp
-    ${CMAKE_SOURCE_DIR}/src/gameplay/game_sim.cpp
-    ${CMAKE_SOURCE_DIR}/src/gameplay/game_state.cpp
-    ${CMAKE_SOURCE_DIR}/src/gameplay/game_state_io.cpp
-    ${CMAKE_SOURCE_DIR}/src/gameplay/global_state.cpp
-    ${CMAKE_SOURCE_DIR}/src/gameplay/level_grid.cpp
-    ${CMAKE_SOURCE_DIR}/src/gameplay/local_state.cpp
-    ${CMAKE_SOURCE_DIR}/src/gameplay/player.cpp
-    ${CMAKE_SOURCE_DIR}/src/gameplay/tile.cpp
-    ${CMAKE_SOURCE_DIR}/src/gameplay/unit.cpp
-    ${CMAKE_SOURCE_DIR}/src/gameplay/unit_manager.cpp
+    ${CMAKE_SOURCE_DIR}/src/gameplay/private/array2d.cpp
+    ${CMAKE_SOURCE_DIR}/src/gameplay/private/game_io.cpp
+    ${CMAKE_SOURCE_DIR}/src/gameplay/private/game_play.cpp
+    ${CMAKE_SOURCE_DIR}/src/gameplay/private/game_sim.cpp
+    ${CMAKE_SOURCE_DIR}/src/gameplay/private/game_state.cpp
+    ${CMAKE_SOURCE_DIR}/src/gameplay/private/game_state_io.cpp
+    ${CMAKE_SOURCE_DIR}/src/gameplay/private/global_state.cpp
+    ${CMAKE_SOURCE_DIR}/src/gameplay/private/level_grid.cpp
+    ${CMAKE_SOURCE_DIR}/src/gameplay/private/local_state.cpp
+    ${CMAKE_SOURCE_DIR}/src/gameplay/private/player.cpp
+    ${CMAKE_SOURCE_DIR}/src/gameplay/private/tile.cpp
+    ${CMAKE_SOURCE_DIR}/src/gameplay/private/unit.cpp
+    ${CMAKE_SOURCE_DIR}/src/gameplay/private/unit_manager.cpp
 )
+target_link_libraries(gameplay PRIVATE custom)
 
 add_library(network STATIC)
-target_include_directories(network PUBLIC ${CMAKE_SOURCE_DIR}/src/network)
+target_include_directories(network PUBLIC ${CMAKE_SOURCE_DIR}/src/network/public)
 target_sources(network PRIVATE
-     ${CMAKE_SOURCE_DIR}/src/network/address.cpp
-     ${CMAKE_SOURCE_DIR}/src/network/net_shared.cpp
+     ${CMAKE_SOURCE_DIR}/src/network/private/address.cpp
+     ${CMAKE_SOURCE_DIR}/src/network/private/net_shared.cpp
 )
 target_link_libraries(network PUBLIC external::sdl2net)
 
 add_library(custom STATIC)
-target_include_directories(custom PUBLIC ${CMAKE_SOURCE_DIR}/src/custom)
+target_include_directories(custom PUBLIC ${CMAKE_SOURCE_DIR}/src/custom/public)
 target_sources(custom PRIVATE
-     ${CMAKE_SOURCE_DIR}/src/custom/color_debug.cpp
+     ${CMAKE_SOURCE_DIR}/src/custom/private/color_debug.cpp
 )
 target_link_libraries(custom PUBLIC gameplay)
 

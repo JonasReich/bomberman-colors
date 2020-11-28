@@ -8,3 +8,7 @@ bin/
 Debug/
 
 *.orig
+
+build/
+cmake_build/
+build32/

@@ -7,8 +7,8 @@
 #include <windows.h>
 
 #include "game_io.h"
-#include "../custom/vectorExtensions.h"
-#include "../custom/color_debug.h"
+#include "vectorExtensions.h"
+#include "color_debug.h"
 
 void CGameIO::ASCIIExport(const CGameState & State, bool _debug)
 {
