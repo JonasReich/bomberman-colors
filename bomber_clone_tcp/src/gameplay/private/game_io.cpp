@@ -81,14 +81,14 @@ void CGameIO::ASCIIExport(const CGameState & State, bool _debug)
 			}
 			else
 			{
-				TileType Type = State.m_LevelGrid.Get(x, y);
+				ETileType Type = State.m_LevelGrid.Get(x, y);
 
 				switch (Type)
 				{
-				case TILE_TYPE_FREE:
+				case ETileType::Free:
 					std::cout << "  ";
 					break;
-				case TILE_TYPE_WALL:
+				case ETileType::Wall:
 					std::cout << "##";
 					break;
 					/*case TILE_TYPE_FUEL:
@@ -97,13 +97,13 @@ void CGameIO::ASCIIExport(const CGameState & State, bool _debug)
 						/*case TILE_TYPE_FIRE:
 							std::cout << "%%";
 							break;*/
-				case TILE_TYPE_ROCK:
+				case ETileType::Rock:
 					std::cout << "::";
 					break;
-				case TILE_TYPE_UPSZ:
+				case ETileType::Upgrade_Size:
 					std::cout << "<>";
 					break;
-				case TILE_TYPE_UPNR:
+				case ETileType::Upgrade_BombCount:
 					std::cout << "++";
 					break;
 				default:
@@ -169,24 +169,24 @@ void CGameIO::PPMImport(std::istream &InStream, CGameState &State)
 			InStream >> Green;
 			InStream >> Blue;
 
-			TileType Type = TILE_TYPE_NONE;
+			ETileType Type = ETileType::None;
 			if (Red == Green && Red == Blue) // grey
 			{
 				if (Red < 64)
-					Type = TILE_TYPE_FREE;
+					Type = ETileType::Free;
 				else if (Red < 196)
-					Type = TILE_TYPE_ROCK;
+					Type = ETileType::Rock;
 				else // if(Red >= 196)
-					Type = TILE_TYPE_WALL;
+					Type = ETileType::Wall;
 			}
 			else if (Red > Green && Red > Blue)
-				Type = TILE_TYPE_UPSZ;
+				Type = ETileType::Upgrade_Size;
 			else if (Blue > Red && Blue > Green)
-				Type = TILE_TYPE_UPNR;
+				Type = ETileType::Upgrade_BombCount;
 			else if (Green > Red && Green > Blue)
-				Type = TILE_TYPE_TRAP;
+				Type = ETileType::Trap;
 			else if (Green == Red && Green > Blue)
-				Type = TILE_TYPE_FUSE;
+				Type = ETileType::Fuse;
 
 			State.m_LevelGrid.Set(Column, Row, Type);
 		}
@@ -211,31 +211,31 @@ void CGameIO::PPMExport(
 			int Green;
 			int Blue;
 
-			const TileType Type = State.m_LevelGrid.Get(Column, Row);
+			const ETileType Type = State.m_LevelGrid.Get(Column, Row);
 
 			switch (Type)
 			{
-			case TILE_TYPE_FREE:
+			case ETileType::Free:
 				Red = 0;
 				Green = 0;
 				Blue = 0;
 				break;
-			case TILE_TYPE_ROCK:
+			case ETileType::Rock:
 				Red = 128;
 				Green = 128;
 				Blue = 128;
 				break;
-			case TILE_TYPE_WALL:
+			case ETileType::Wall:
 				Red = 255;
 				Green = 255;
 				Blue = 255;
 				break;
-			case TILE_TYPE_UPSZ:
+			case ETileType::Upgrade_Size:
 				Red = 255;
 				Green = 0;
 				Blue = 0;
 				break;
-			case TILE_TYPE_UPNR:
+			case ETileType::Upgrade_BombCount:
 				Red = 0;
 				Green = 0;
 				Blue = 255;

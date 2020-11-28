@@ -28,9 +28,9 @@ void CGameStateIO::Import(
         unsigned int x;
         for(x = 0; x < Width; x++)
         {
-            TileType Tile;
-            memcpy((void *)(&Tile), (void *)Buffer, sizeof(TileType));
-            Buffer += sizeof(TileType);
+            ETileType Tile;
+            memcpy((void *)(&Tile), (void *)Buffer, sizeof(ETileType));
+            Buffer += sizeof(ETileType);
 
             State.m_LevelGrid.Set(x, y, Tile);
         }
@@ -99,9 +99,9 @@ unsigned int CGameStateIO::Export(
         unsigned int x;
         for(x = 0; x < Width; x++)
         {
-            TileType Tile = State.m_LevelGrid.Get(x, y);
-            memcpy((void *)(Buffer + Size), (void *)(&Tile), sizeof(TileType));
-            Size += sizeof(TileType);
+            ETileType Tile = State.m_LevelGrid.Get(x, y);
+            memcpy((void *)(Buffer + Size), (void *)(&Tile), sizeof(ETileType));
+            Size += sizeof(ETileType);
         }
     }
 

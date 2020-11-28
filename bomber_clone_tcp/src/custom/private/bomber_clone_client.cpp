@@ -152,7 +152,7 @@ int main(int argc, char **argv)
 				}
 
 				Tile playerTile = Tile(playerPositions[Local.m_PlayerNr].first, playerPositions[Local.m_PlayerNr].second);
-				std::vector<Tile> path = BFS(playerTile, TILE_TYPE_UPNR, State.m_LevelGrid);
+				std::vector<Tile> path = BFS(playerTile, ETileType::Upgrade_BombCount, State.m_LevelGrid);
 
 				if (path.size() > 0) {
 					Tile& targetTile = path[0];

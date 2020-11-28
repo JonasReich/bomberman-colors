@@ -1,16 +1,17 @@
 #pragma once
 
-typedef enum
+/**
+ * Type of a level grid tile.
+ * Determines collision response and may trigger some overlap effects.
+ */
+enum class ETileType
 {
-    TILE_TYPE_NONE = 0, // error type
-    TILE_TYPE_FREE = 1,
-    TILE_TYPE_ROCK = 2,
-    TILE_TYPE_WALL = 3,
-    TILE_TYPE_UPNR = 4,
-    TILE_TYPE_UPSZ = 5,
-    TILE_TYPE_TRAP = 6, // only spawn-marker, removed after loading level
-    TILE_TYPE_FUSE = 7, // only spawn-marker, removed after loading level
-    //TILE_TYPE_FUEL,
-    //TILE_TYPE_FIRE,
-}
-TileType;
+    None = 0, // error type
+    Free = 1,
+    Rock = 2,
+    Wall = 3,
+    Upgrade_BombCount = 4,
+    Upgrade_Size = 5,
+    Trap = 6, // only spawn-marker, removed after loading level
+    Fuse = 7, // only spawn-marker, removed after loading level
+};

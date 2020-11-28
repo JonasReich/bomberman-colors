@@ -179,15 +179,15 @@ int main(int argc, char **argv)
             {
                 for(unsigned int u = 0; u < State.m_LevelGrid.Width(); u++)
                 {
-                    const TileType Tile = State.m_LevelGrid.Get(u, v);
-                    if(Tile == TILE_TYPE_TRAP) // spawn trap
+                    const ETileType Tile = State.m_LevelGrid.Get(u, v);
+                    if(Tile == ETileType::Trap) // spawn trap
                     {
-                        State.m_LevelGrid.Set(u, v, TILE_TYPE_FREE);
+                        State.m_LevelGrid.Set(u, v, ETileType::Free);
                         State.m_UnitManager.m_PlayerUnits[iClient].push_back(CUnit(iClient, EUnitType::Bomb, u, v, 0));
                     }
-                    else if(Tile == TILE_TYPE_FUSE) // spawn bomb
+                    else if(Tile == ETileType::Fuse) // spawn bomb
                     {
-                        State.m_LevelGrid.Set(u, v, TILE_TYPE_FREE);
+                        State.m_LevelGrid.Set(u, v, ETileType::Free);
                         State.m_UnitManager.m_PlayerUnits[iClient].push_back(CUnit(iClient, EUnitType::Bomb, u, v, 1));
                     }
                 }

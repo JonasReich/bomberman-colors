@@ -36,10 +36,10 @@ std::vector<CPlayer> CGameSim::UpdatePlayers(
 
             if(UnitCurrent.m_Type == EUnitType::Hero)
             {
-                if(State.m_LevelGrid.Get(UnitCurrent.m_PosX, UnitCurrent.m_PosY) == TILE_TYPE_UPSZ)
+                if(State.m_LevelGrid.Get(UnitCurrent.m_PosX, UnitCurrent.m_PosY) == ETileType::Upgrade_Size)
                     NewPlayer.m_ExplosionSize++;
 
-                if(State.m_LevelGrid.Get(UnitCurrent.m_PosX, UnitCurrent.m_PosY) == TILE_TYPE_UPNR)
+                if(State.m_LevelGrid.Get(UnitCurrent.m_PosX, UnitCurrent.m_PosY) == ETileType::Upgrade_BombCount)
                     NewPlayer.m_BombNr++;
             }
         }
@@ -63,17 +63,17 @@ CLevelGrid CGameSim::UpdateGrid(
         unsigned int u;
         for(u = 0; u < Width; u++)
         {
-            const TileType CurrentTile = State.m_LevelGrid.Get(u, v);
-            TileType NewTile = CurrentTile;
+            const ETileType CurrentTile = State.m_LevelGrid.Get(u, v);
+            ETileType NewTile = CurrentTile;
 
             switch(CurrentTile)
             {
-            case TILE_TYPE_ROCK:
+            case ETileType::Rock:
                 if(State.m_UnitManager.TileContains(u, v, EUnitType::Fire))
-                    NewTile = TILE_TYPE_FREE;
+                    NewTile = ETileType::Free;
 
                 break;
-            case TILE_TYPE_UPNR:
+            case ETileType::Upgrade_BombCount:
             {
                 unsigned int Collect = 0;
 
@@ -86,11 +86,11 @@ CLevelGrid CGameSim::UpdateGrid(
                 }
 
                 if(Collect > 0)
-                    NewTile = TILE_TYPE_FREE;
+                    NewTile = ETileType::Free;
 
                 break;
             }
-            case TILE_TYPE_UPSZ:
+            case ETileType::Upgrade_Size:
             {
                 unsigned int Collect = 0;
 
@@ -103,7 +103,7 @@ CLevelGrid CGameSim::UpdateGrid(
                 }
 
                 if(Collect > 0)
-                    NewTile = TILE_TYPE_FREE;
+                    NewTile = ETileType::Free;
 
                 break;
             }
@@ -194,8 +194,8 @@ CUnitManager CGameSim::UpdateUnits(
                         ;
                     }
 
-                    if(State.m_LevelGrid.Get(UnitNew.m_PosX, UnitNew.m_PosY) != TILE_TYPE_WALL
-                            && State.m_LevelGrid.Get(UnitNew.m_PosX, UnitNew.m_PosY) != TILE_TYPE_ROCK)
+                    if(State.m_LevelGrid.Get(UnitNew.m_PosX, UnitNew.m_PosY) != ETileType::Wall
+                            && State.m_LevelGrid.Get(UnitNew.m_PosX, UnitNew.m_PosY) != ETileType::Rock)
                     {
                         UpdatedUnits.m_PlayerUnits[iPlayer].push_back(UnitNew);
                     }
@@ -289,7 +289,7 @@ void CGameSim::ExplosionBeam(
             const unsigned int x = x0 + dx * i;
             const unsigned int y = y0 + dy * i;
 
-            if(State.m_LevelGrid.Get(x, y) == TILE_TYPE_WALL)
+            if(State.m_LevelGrid.Get(x, y) == ETileType::Wall)
                 break;
 
             const CUnit Explosion(
@@ -298,7 +298,7 @@ void CGameSim::ExplosionBeam(
 
             UpdatedUnits.m_PlayerUnits[iPlayer].push_back(Explosion);
 
-            if(State.m_LevelGrid.Get(x, y) == TILE_TYPE_ROCK)
+            if(State.m_LevelGrid.Get(x, y) == ETileType::Rock)
                 break;
         }
     }

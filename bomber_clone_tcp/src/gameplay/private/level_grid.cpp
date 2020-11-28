@@ -5,11 +5,11 @@ CLevelGrid::CLevelGrid()
 }
 
 CLevelGrid::CLevelGrid(unsigned int Width, unsigned int Height)
-: TCArray2d<TileType>(Width, Height)
+: TCArray2d<ETileType>(Width, Height)
 {
 }
 
-bool CLevelGrid::TouchesType(unsigned int x, unsigned y, TileType Type) const
+bool CLevelGrid::TouchesType(unsigned int x, unsigned y, ETileType Type) const
 {
     if(Get(x - 1, y) == Type)
         return true;
