@@ -53,16 +53,16 @@ void CGameIO::ASCIIExport(const CGameState & State, bool _debug)
 
 				switch (Unit.m_Type)
 				{
-				case UNIT_TYPE_BOMB:
+				case EUnitType::Bomb:
 					if (Unit.m_LifeTime > 0)
 						std::cout << "()";
 					else
 						std::cout << "[]";
 					break;
-				case UNIT_TYPE_FIRE:
+				case EUnitType::Fire:
 					std::cout << "%%";
 					break;
-				case UNIT_TYPE_HERO:
+				case EUnitType::Hero:
 				{
 					//std::cout << "!!";
 					const char PlayerChar = '0' + (Unit.m_Owner % 10);

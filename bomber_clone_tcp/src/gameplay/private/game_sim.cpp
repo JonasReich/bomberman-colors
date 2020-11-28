@@ -34,7 +34,7 @@ std::vector<CPlayer> CGameSim::UpdatePlayers(
         {
             const CUnit UnitCurrent = State.m_UnitManager.m_PlayerUnits[iPlayer][iUnit];
 
-            if(UnitCurrent.m_Type == UNIT_TYPE_HERO)
+            if(UnitCurrent.m_Type == EUnitType::Hero)
             {
                 if(State.m_LevelGrid.Get(UnitCurrent.m_PosX, UnitCurrent.m_PosY) == TILE_TYPE_UPSZ)
                     NewPlayer.m_ExplosionSize++;
@@ -69,7 +69,7 @@ CLevelGrid CGameSim::UpdateGrid(
             switch(CurrentTile)
             {
             case TILE_TYPE_ROCK:
-                if(State.m_UnitManager.TileContains(u, v, UNIT_TYPE_FIRE))
+                if(State.m_UnitManager.TileContains(u, v, EUnitType::Fire))
                     NewTile = TILE_TYPE_FREE;
 
                 break;
@@ -81,7 +81,7 @@ CLevelGrid CGameSim::UpdateGrid(
                 unsigned int iPlayer;
                 for(iPlayer = 0; iPlayer < nPlayer; iPlayer++)
                 {
-                    if(State.m_UnitManager.CountPlayerUnitsOnTile(iPlayer, UNIT_TYPE_HERO, u, v) > 0)
+                    if(State.m_UnitManager.CountPlayerUnitsOnTile(iPlayer, EUnitType::Hero, u, v) > 0)
                         Collect++;
                 }
 
@@ -98,7 +98,7 @@ CLevelGrid CGameSim::UpdateGrid(
                 unsigned int iPlayer;
                 for(iPlayer = 0; iPlayer < nPlayer; iPlayer++)
                 {
-                    if(State.m_UnitManager.CountPlayerUnitsOnTile(iPlayer, UNIT_TYPE_HERO, u, v) > 0)
+                    if(State.m_UnitManager.CountPlayerUnitsOnTile(iPlayer, EUnitType::Hero, u, v) > 0)
                         Collect++;
                 }
 
@@ -140,9 +140,9 @@ CUnitManager CGameSim::UpdateUnits(
 
             switch(UnitCurrent.m_Type)
             {
-            case UNIT_TYPE_HERO:
+            case EUnitType::Hero:
                 //if(State.m_LevelGrid.Get(UnitCurrent.m_PosX, UnitCurrent.m_PosY) == 
-                if(State.m_UnitManager.TileContains(UnitCurrent.m_PosX, UnitCurrent.m_PosY, UNIT_TYPE_FIRE))
+                if(State.m_UnitManager.TileContains(UnitCurrent.m_PosX, UnitCurrent.m_PosY, EUnitType::Fire))
                 {
                     // delete hero by not re-inserting in queue
                 }
@@ -164,11 +164,11 @@ CUnitManager CGameSim::UpdateUnits(
                         break;
                     case PLAYER_CONTROL_BOMB:
                     {
-                        const unsigned int BombsInUse = State.m_UnitManager.CountPlayerUnits(iPlayer, UNIT_TYPE_BOMB);
+                        const unsigned int BombsInUse = State.m_UnitManager.CountPlayerUnits(iPlayer, EUnitType::Bomb);
                         if(BombsInUse < State.m_Player[iPlayer].m_BombNr)
                         {
                             const CUnit Bomb(
-                                    iPlayer, UNIT_TYPE_BOMB,
+                                    iPlayer, EUnitType::Bomb,
                                     UnitCurrent.m_PosX, UnitCurrent.m_PosY, 4);
 
                             UpdatedUnits.m_PlayerUnits[iPlayer].push_back(Bomb);
@@ -178,11 +178,11 @@ CUnitManager CGameSim::UpdateUnits(
                     }
                     case PLAYER_CONTROL_TRAP:
                     {
-                        const unsigned int BombsInUse = State.m_UnitManager.CountPlayerUnits(iPlayer, UNIT_TYPE_BOMB);
+                        const unsigned int BombsInUse = State.m_UnitManager.CountPlayerUnits(iPlayer, EUnitType::Bomb);
                         if(BombsInUse + 1 < State.m_Player[iPlayer].m_BombNr) // make sure player has at least one bomb to use
                         {
                             const CUnit Bomb(
-                                    iPlayer, UNIT_TYPE_BOMB,
+                                    iPlayer, EUnitType::Bomb,
                                     UnitCurrent.m_PosX, UnitCurrent.m_PosY, 0);
 
                             UpdatedUnits.m_PlayerUnits[iPlayer].push_back(Bomb);
@@ -206,14 +206,14 @@ CUnitManager CGameSim::UpdateUnits(
                 }
 
                 break;
-            case UNIT_TYPE_BOMB:
+            case EUnitType::Bomb:
                 if(UnitCurrent.m_LifeTime != 1
-                        && State.m_UnitManager.CountAllUnitsOnTile(UNIT_TYPE_FIRE, UnitCurrent.m_PosX, UnitCurrent.m_PosY) <= 0)
+                        && State.m_UnitManager.CountAllUnitsOnTile(EUnitType::Fire, UnitCurrent.m_PosX, UnitCurrent.m_PosY) <= 0)
                 {
                     if(UnitNew.m_LifeTime > 1)
                         UnitNew.m_LifeTime--;
 
-                    /*if(State.m_UnitManager.CountAllUnitsOnTile(UNIT_TYPE_FIRE, UnitCurrent.m_PosX, UnitCurrent.m_PosY) > 0)
+                    /*if(State.m_UnitManager.CountAllUnitsOnTile(EUnitType::Fire, UnitCurrent.m_PosX, UnitCurrent.m_PosY) > 0)
                     {
                         //if(UnitCurrent.m_LifeTime > 1)
                             UnitNew.m_LifeTime = 1; // explode in next frame
@@ -227,7 +227,7 @@ CUnitManager CGameSim::UpdateUnits(
                     {
                         const int Range = State.m_Player[UnitCurrent.m_Owner].m_ExplosionSize;
 
-                        UpdatedUnits.m_PlayerUnits[iPlayer].push_back(CUnit(UnitCurrent.m_Owner, UNIT_TYPE_FIRE, UnitCurrent.m_PosX, UnitCurrent.m_PosY, 1));
+                        UpdatedUnits.m_PlayerUnits[iPlayer].push_back(CUnit(UnitCurrent.m_Owner, EUnitType::Fire, UnitCurrent.m_PosX, UnitCurrent.m_PosY, 1));
 
                         ExplosionBeam(
                                 UpdatedUnits, State, iPlayer,
@@ -252,7 +252,7 @@ CUnitManager CGameSim::UpdateUnits(
                 }
 
                 break;
-            case UNIT_TYPE_FIRE:
+            case EUnitType::Fire:
                 if(UnitCurrent.m_LifeTime != 1)
                 {
                     if(UnitNew.m_LifeTime > 1)
@@ -293,7 +293,7 @@ void CGameSim::ExplosionBeam(
                 break;
 
             const CUnit Explosion(
-                    iPlayer, UNIT_TYPE_FIRE,
+                    iPlayer, EUnitType::Fire,
                     x, y, 1);
 
             UpdatedUnits.m_PlayerUnits[iPlayer].push_back(Explosion);

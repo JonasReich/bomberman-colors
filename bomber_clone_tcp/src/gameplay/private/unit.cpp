@@ -1,13 +1,13 @@
 #include "unit.h"
 
 CUnit::CUnit()
-: m_Type(UNIT_TYPE_NONE), m_LifeTime(0)
+: m_Type(EUnitType::None), m_LifeTime(0)
 {
 }
 
 CUnit::CUnit(
         unsigned int Owner,
-        UnitType Type,
+        EUnitType Type,
         int PosX, int PosY,
         unsigned int LifeTime)
 : m_Owner(Owner),  m_Type(Type),

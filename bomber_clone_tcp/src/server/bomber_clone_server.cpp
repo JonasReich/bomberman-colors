@@ -165,7 +165,7 @@ int main(int argc, char **argv)
             unsigned int SpawnX = ((iClient >> 0) & 1) ? 1 : State.m_LevelGrid.Width() - 2;
             unsigned int SpawnY = ((iClient >> 1) & 1) ? 1 : State.m_LevelGrid.Height() - 2;
 
-            const CUnit NewPlayerUnit(iClient, UNIT_TYPE_HERO, SpawnX, SpawnY, 0);
+            const CUnit NewPlayerUnit(iClient, EUnitType::Hero, SpawnX, SpawnY, 0);
             State.m_UnitManager.m_PlayerUnits[iClient].push_back(NewPlayerUnit);
         }
 
@@ -174,7 +174,7 @@ int main(int argc, char **argv)
             State.m_Player.push_back(CPlayer());
             State.m_UnitManager.m_PlayerUnits.push_back(std::vector<CUnit>());
             State.m_UnitManager.m_PlayerUnits[iClient].clear();
-            //State.m_UnitManager.m_PlayerUnits[iClient].push_back(CUnit(iClient, UNIT_TYPE_BOMB, 1, 2, 0));
+            //State.m_UnitManager.m_PlayerUnits[iClient].push_back(CUnit(iClient, EUnitType::Bomb, 1, 2, 0));
             for(unsigned int v = 0; v < State.m_LevelGrid.Height(); v++)
             {
                 for(unsigned int u = 0; u < State.m_LevelGrid.Width(); u++)
@@ -183,12 +183,12 @@ int main(int argc, char **argv)
                     if(Tile == TILE_TYPE_TRAP) // spawn trap
                     {
                         State.m_LevelGrid.Set(u, v, TILE_TYPE_FREE);
-                        State.m_UnitManager.m_PlayerUnits[iClient].push_back(CUnit(iClient, UNIT_TYPE_BOMB, u, v, 0));
+                        State.m_UnitManager.m_PlayerUnits[iClient].push_back(CUnit(iClient, EUnitType::Bomb, u, v, 0));
                     }
                     else if(Tile == TILE_TYPE_FUSE) // spawn bomb
                     {
                         State.m_LevelGrid.Set(u, v, TILE_TYPE_FREE);
-                        State.m_UnitManager.m_PlayerUnits[iClient].push_back(CUnit(iClient, UNIT_TYPE_BOMB, u, v, 1));
+                        State.m_UnitManager.m_PlayerUnits[iClient].push_back(CUnit(iClient, EUnitType::Bomb, u, v, 1));
                     }
                 }
             }
@@ -233,7 +233,7 @@ int main(int argc, char **argv)
             unsigned int ConnectionFailsReceive = 0;
             for(iClient = 0; iClient < NrOfClients; iClient++)
             {
-                if(State.m_UnitManager.CountPlayerUnits(iClient, UNIT_TYPE_HERO) <= 0)
+                if(State.m_UnitManager.CountPlayerUnits(iClient, EUnitType::Hero) <= 0)
                 {
                     std::cout << "skipping hero-less player " << iClient << "\n";
                     continue;
@@ -263,7 +263,7 @@ int main(int argc, char **argv)
             unsigned int AliveCount = 0;
             for(iClient = 0; iClient < State.m_UnitManager.m_PlayerUnits.size(); iClient++)
             {
-                if(State.m_UnitManager.CountPlayerUnits(iClient, UNIT_TYPE_HERO) > 0)
+                if(State.m_UnitManager.CountPlayerUnits(iClient, EUnitType::Hero) > 0)
                     AliveCount++;
                 else
                     std::cout << "client " << iClient << " has no more heros\n";
@@ -285,7 +285,7 @@ int main(int argc, char **argv)
 
         for(iClient = 0; iClient < State.m_UnitManager.m_PlayerUnits.size(); iClient++)
         {
-            if(State.m_UnitManager.CountPlayerUnits(iClient, UNIT_TYPE_HERO) > 0)
+            if(State.m_UnitManager.CountPlayerUnits(iClient, EUnitType::Hero) > 0)
                 Global.m_Score[iClient]++;
         }
 

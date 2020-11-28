@@ -2,28 +2,32 @@
 
 #include <queue>
 
-typedef enum
+/** Unit type changes behavior and visuals of a unit. */
+enum class EUnitType
 {
-    UNIT_TYPE_NONE,
-    UNIT_TYPE_BOMB,
-    UNIT_TYPE_FIRE,
-    UNIT_TYPE_HERO,
-    //UNIT_TYPE_ROCK,
-    //UNIT_TYPE_SHOT,
-    UNIT_TYPE_COUNT
-}
-UnitType;
+    // [meta] Invalid/undefined unit type
+    None,
+    // Bomb that can be placed by players to attack
+    Bomb,
+    // Fire zone created by bomb explosion
+    Fire,
+    // Player controlled character/hero
+    Hero,
+    // [meta] Total number of unit types
+    Count
+};
 
+/** A unit is a dynamic entity owned/controlled by one of the playersdw */
 class CUnit
 {
 public:
     CUnit();
-    CUnit(unsigned int Owner, UnitType Type,
+    CUnit(unsigned int Owner, EUnitType Type,
             int PosX, int PosY,
             unsigned int LifeTime);
 
     unsigned int m_Owner;
-    UnitType m_Type;
+    EUnitType m_Type;
     int m_PosX;
     int m_PosY;
     int m_DirX;

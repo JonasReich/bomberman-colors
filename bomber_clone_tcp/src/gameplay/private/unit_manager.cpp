@@ -1,7 +1,7 @@
 #include "unit_manager.h"
 
 unsigned int CUnitManager::CountPlayerUnits(
-        unsigned int iPlayer, UnitType Type) const
+        unsigned int iPlayer, EUnitType Type) const
 {
     unsigned int Count = 0;
 
@@ -21,7 +21,7 @@ unsigned int CUnitManager::CountPlayerUnits(
     return Count;
 }
 
-std::vector<CUnit> CUnitManager::GetPlayerUnits(unsigned int iPlayer, UnitType Type) const
+std::vector<CUnit> CUnitManager::GetPlayerUnits(unsigned int iPlayer, EUnitType Type) const
 {
     std::vector<CUnit> Units;
 
@@ -42,7 +42,7 @@ std::vector<CUnit> CUnitManager::GetPlayerUnits(unsigned int iPlayer, UnitType T
 }
 
 unsigned int CUnitManager::CountPlayerUnitsOnTile(
-        unsigned int iPlayer, UnitType Type, unsigned int x, unsigned int y) const
+        unsigned int iPlayer, EUnitType Type, unsigned int x, unsigned int y) const
 {
     unsigned int Count = 0;
 
@@ -63,7 +63,7 @@ unsigned int CUnitManager::CountPlayerUnitsOnTile(
 }
 
 std::vector<CUnit> CUnitManager::GetPlayerUnitsOnTile(
-        unsigned int iPlayer, UnitType Type, unsigned int x, unsigned int y) const
+        unsigned int iPlayer, EUnitType Type, unsigned int x, unsigned int y) const
 {
     std::vector<CUnit> Units;
 
@@ -84,7 +84,7 @@ std::vector<CUnit> CUnitManager::GetPlayerUnitsOnTile(
 }
 
 unsigned int CUnitManager::CountAllUnitsOnTile(
-        UnitType Type, unsigned int x, unsigned int y) const
+        EUnitType Type, unsigned int x, unsigned int y) const
 {
     unsigned int Count = 0;
 
@@ -104,7 +104,7 @@ unsigned int CUnitManager::CountAllUnitsOnTile(
 }
 
 std::vector<CUnit> CUnitManager::GetAllUnitsOnTile(
-        UnitType Type, unsigned int x, unsigned int y) const
+        EUnitType Type, unsigned int x, unsigned int y) const
 {
     std::vector<CUnit> UnitsOnTile;
 
@@ -161,7 +161,7 @@ std::vector<CUnit> CUnitManager::GetAllUnitsOnTile(unsigned int x, unsigned int 
     return UnitsOnTile;
 }
 
-bool CUnitManager::TileContains(unsigned int x, unsigned int y, UnitType Type) const
+bool CUnitManager::TileContains(unsigned int x, unsigned int y, EUnitType Type) const
 {
     unsigned int iPlayer;
     for(iPlayer = 0; iPlayer < m_PlayerUnits.size(); iPlayer++)
@@ -179,7 +179,7 @@ bool CUnitManager::TileContains(unsigned int x, unsigned int y, UnitType Type) c
     return false;
 }
 
-bool CUnitManager::TouchesType(unsigned int x, unsigned int y, UnitType Type) const
+bool CUnitManager::TouchesType(unsigned int x, unsigned int y, EUnitType Type) const
 {
     return TileContains(x - 1, y, Type) || TileContains(x + 1, y, Type)
             || TileContains(x, y - 1, Type) || TileContains(x, y + 1, Type);
@@ -189,7 +189,7 @@ std::pair<unsigned int, unsigned int> CUnitManager::GetHeroPosition(unsigned int
 {
 	for (unsigned int i = 0; i < m_PlayerUnits[playerIndex].size(); i++)
 	{
-		if (m_PlayerUnits[playerIndex][i].m_Type == UNIT_TYPE_HERO)
+		if (m_PlayerUnits[playerIndex][i].m_Type == EUnitType::Hero)
 			return std::make_pair(m_PlayerUnits[playerIndex][i].m_PosX, m_PlayerUnits[playerIndex][i].m_PosY);
 	}
 

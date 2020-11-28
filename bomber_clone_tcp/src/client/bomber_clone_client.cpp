@@ -134,7 +134,7 @@ int main (int argc, char *argv[])
 
 		std::cout << "\n";
 		const unsigned int ExplosionSize = State.m_Player[Local.m_PlayerNr].m_ExplosionSize;
-		const unsigned int BombsInUse = State.m_UnitManager.CountPlayerUnits(Local.m_PlayerNr, UNIT_TYPE_BOMB);
+		const unsigned int BombsInUse = State.m_UnitManager.CountPlayerUnits(Local.m_PlayerNr, EUnitType::Bomb);
 		const unsigned int BombNr = State.m_Player[Local.m_PlayerNr].m_BombNr;
 		std::cout << "explosion-size: " << ExplosionSize << " ";
 		std::cout << "bomb-nr: " << BombNr << " ";
@@ -163,7 +163,7 @@ int main (int argc, char *argv[])
 
 		PlayerControlType Action = PLAYER_CONTROL_NONE;
 
-		if (State.m_UnitManager.CountPlayerUnits(Local.m_PlayerNr, UNIT_TYPE_HERO) > 0)
+		if (State.m_UnitManager.CountPlayerUnits(Local.m_PlayerNr, EUnitType::Hero) > 0)
 		{
 			std::cout << "Please enter action:\n";
 

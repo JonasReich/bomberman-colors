@@ -120,7 +120,7 @@ int main(int argc, char **argv)
 			std::cout << " invalid id!";
 
 		std::cout << "\n";
-		const unsigned int BombsInUse = State.m_UnitManager.CountPlayerUnits(Local.m_PlayerNr, UNIT_TYPE_BOMB);
+		const unsigned int BombsInUse = State.m_UnitManager.CountPlayerUnits(Local.m_PlayerNr, EUnitType::Bomb);
 		std::cout << "explosion-size: " << State.m_Player[Local.m_PlayerNr].m_ExplosionSize << " ";
 		std::cout << "bomb-nr: " << State.m_Player[Local.m_PlayerNr].m_BombNr << " ";
 		std::cout << "bombs in use: " << BombsInUse << " ";
@@ -134,7 +134,7 @@ int main(int argc, char **argv)
 
 		PlayerControlType Action;
 
-		if (State.m_UnitManager.CountPlayerUnits(Local.m_PlayerNr, UNIT_TYPE_HERO) > 0)
+		if (State.m_UnitManager.CountPlayerUnits(Local.m_PlayerNr, EUnitType::Hero) > 0)
 		{
 			std::cout << "Please enter action:\n";
 			if (Behaviour == "bot")
