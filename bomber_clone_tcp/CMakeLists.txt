@@ -10,15 +10,12 @@ add_subdirectory(external)
 add_library(gameplay STATIC)
 target_include_directories(gameplay PUBLIC ${CMAKE_SOURCE_DIR}/src/gameplay/public)
 target_sources(gameplay PRIVATE
-    ${CMAKE_SOURCE_DIR}/src/gameplay/private/array2d.cpp
     ${CMAKE_SOURCE_DIR}/src/gameplay/private/game_io.cpp
-    ${CMAKE_SOURCE_DIR}/src/gameplay/private/game_play.cpp
     ${CMAKE_SOURCE_DIR}/src/gameplay/private/game_sim.cpp
     ${CMAKE_SOURCE_DIR}/src/gameplay/private/game_state.cpp
     ${CMAKE_SOURCE_DIR}/src/gameplay/private/game_state_io.cpp
     ${CMAKE_SOURCE_DIR}/src/gameplay/private/global_state.cpp
     ${CMAKE_SOURCE_DIR}/src/gameplay/private/level_grid.cpp
-    ${CMAKE_SOURCE_DIR}/src/gameplay/private/local_state.cpp
     ${CMAKE_SOURCE_DIR}/src/gameplay/private/player.cpp
     ${CMAKE_SOURCE_DIR}/src/gameplay/private/tile.cpp
     ${CMAKE_SOURCE_DIR}/src/gameplay/private/unit.cpp

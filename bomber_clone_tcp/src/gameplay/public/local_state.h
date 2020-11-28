@@ -5,7 +5,5 @@
 class CLocalState
 {
 public:
-    CLocalState();
-    
-    int m_PlayerNr;
+    int m_PlayerNr = 0;
 };
