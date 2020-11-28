@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 #include "game_state.h"
 #include "player.h"
 #include "game_play.h"
@@ -26,7 +28,7 @@ private:
     static void ExplosionBeam(
             CUnitManager &NewUnitManager,
             const CGameState &State,
-            unsigned int iPlayer,
-            unsigned int x, unsigned int y,
-            int dx, int dy, unsigned int r);
+            uint32_t iPlayer,
+            uint32_t x, uint32_t y,
+            int32_t dx, int32_t dy, uint32_t r);
 };

@@ -5,7 +5,7 @@ CAddr::CAddr()
 {
 }
 
-CAddr::CAddr(unsigned int IP, unsigned short Port)
+CAddr::CAddr(uint32_t IP, unsigned short Port)
 : m_IP(IP), m_Port(Port)
 {
 }

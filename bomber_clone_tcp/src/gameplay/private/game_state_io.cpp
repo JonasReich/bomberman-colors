@@ -13,19 +13,19 @@ void CGameStateIO::Import(
     Buffer += sizeof(CLocalState);
 
     // Import terrain
-    unsigned int Width;
-    unsigned int Height;
-    memcpy((void *)(&Width), (void *)Buffer, sizeof(unsigned int));
-    Buffer += sizeof(unsigned int);
-    memcpy((void *)(&Height), (void *)Buffer, sizeof(unsigned int));
-    Buffer += sizeof(unsigned int);
+    uint32_t Width;
+    uint32_t Height;
+    memcpy((void *)(&Width), (void *)Buffer, sizeof(uint32_t));
+    Buffer += sizeof(uint32_t);
+    memcpy((void *)(&Height), (void *)Buffer, sizeof(uint32_t));
+    Buffer += sizeof(uint32_t);
 
     State.m_LevelGrid.Resize(Width, Height);
 
-    unsigned int y;
+    uint32_t y;
     for(y = 0; y < Height; y++)
     {
-        unsigned int x;
+        uint32_t x;
         for(x = 0; x < Width; x++)
         {
             ETileType Tile;
@@ -39,11 +39,11 @@ void CGameStateIO::Import(
     // Import units
     State.m_UnitManager.m_PlayerUnits.clear();
     State.m_Player.clear();
-    unsigned int PlayerCount;
-    memcpy((void *)(&PlayerCount), (void *)Buffer, sizeof(unsigned int));
-    Buffer += sizeof(unsigned int);
+    uint32_t PlayerCount;
+    memcpy((void *)(&PlayerCount), (void *)Buffer, sizeof(uint32_t));
+    Buffer += sizeof(uint32_t);
 
-    unsigned int iPlayer;
+    uint32_t iPlayer;
     for(iPlayer = 0; iPlayer < PlayerCount; iPlayer++)
     {        
         // Import player data
@@ -52,13 +52,13 @@ void CGameStateIO::Import(
         Buffer += sizeof(CPlayer);
         State.m_Player.push_back(Player);
 
-        unsigned int UnitCount;
-        memcpy((void *)(&UnitCount), (void *)Buffer, sizeof(unsigned int));
-        Buffer += sizeof(unsigned int);
+        uint32_t UnitCount;
+        memcpy((void *)(&UnitCount), (void *)Buffer, sizeof(uint32_t));
+        Buffer += sizeof(uint32_t);
 
         State.m_UnitManager.m_PlayerUnits.push_back(std::vector<CUnit>());
 
-        unsigned int iUnit;
+        uint32_t iUnit;
         for(iUnit = 0; iUnit < UnitCount; iUnit++)
         {
             CUnit Unit;
@@ -70,11 +70,11 @@ void CGameStateIO::Import(
     }
 }
 
-unsigned int CGameStateIO::Export(
+uint32_t CGameStateIO::Export(
         const CGameState &State, const CLocalState &Local,
         const CGlobalState &Global, char *Buffer)
 {
-    unsigned int Size = 0;
+    uint32_t Size = 0;
 
     // Export global data
     memcpy((void *)(Buffer + Size), (void *)(&Global), sizeof(CGlobalState));
@@ -85,18 +85,18 @@ unsigned int CGameStateIO::Export(
     Size += sizeof(CLocalState);
 
     // Export terrain
-    const unsigned int Width = State.m_LevelGrid.Width();
-    const unsigned int Height = State.m_LevelGrid.Height();
+    const uint32_t Width = State.m_LevelGrid.Width();
+    const uint32_t Height = State.m_LevelGrid.Height();
 
-    memcpy((void *)(Buffer + Size), (void *)(&Width), sizeof(unsigned int));
-    Size += sizeof(unsigned int);
-    memcpy((void *)(Buffer + Size), (void *)(&Height), sizeof(unsigned int));
-    Size += sizeof(unsigned int);
+    memcpy((void *)(Buffer + Size), (void *)(&Width), sizeof(uint32_t));
+    Size += sizeof(uint32_t);
+    memcpy((void *)(Buffer + Size), (void *)(&Height), sizeof(uint32_t));
+    Size += sizeof(uint32_t);
 
-    unsigned int y;
+    uint32_t y;
     for(y = 0; y < Height; y++)
     {
-        unsigned int x;
+        uint32_t x;
         for(x = 0; x < Width; x++)
         {
             ETileType Tile = State.m_LevelGrid.Get(x, y);
@@ -106,11 +106,11 @@ unsigned int CGameStateIO::Export(
     }
 
     // Export units
-    unsigned int PlayerCount = static_cast<unsigned int>(State.m_UnitManager.m_PlayerUnits.size());
-    memcpy((void *)(Buffer + Size), (void *)(&PlayerCount), sizeof(unsigned int));
-    Size += sizeof(unsigned int);
+    uint32_t PlayerCount = static_cast<uint32_t>(State.m_UnitManager.m_PlayerUnits.size());
+    memcpy((void *)(Buffer + Size), (void *)(&PlayerCount), sizeof(uint32_t));
+    Size += sizeof(uint32_t);
 
-    unsigned int iPlayer;
+    uint32_t iPlayer;
     for(iPlayer = 0; iPlayer < PlayerCount; iPlayer++)
     {        
         // Export player data
@@ -118,11 +118,11 @@ unsigned int CGameStateIO::Export(
         memcpy((void *)(Buffer + Size), (void *)(&Player), sizeof(CPlayer));
         Size += sizeof(CPlayer);
 
-        unsigned int UnitCount = static_cast<unsigned int>(State.m_UnitManager.m_PlayerUnits[iPlayer].size());
-        memcpy((void *)(Buffer + Size), (void *)(&UnitCount), sizeof(unsigned int));
-        Size += sizeof(unsigned int);
+        uint32_t UnitCount = static_cast<uint32_t>(State.m_UnitManager.m_PlayerUnits[iPlayer].size());
+        memcpy((void *)(Buffer + Size), (void *)(&UnitCount), sizeof(uint32_t));
+        Size += sizeof(uint32_t);
 
-        unsigned int iUnit;
+        uint32_t iUnit;
         for(iUnit = 0; iUnit < UnitCount; iUnit++)
         {
             const CUnit Unit = State.m_UnitManager.m_PlayerUnits[iPlayer][iUnit];

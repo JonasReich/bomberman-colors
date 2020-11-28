@@ -6,8 +6,8 @@ CPlayer::CPlayer()
 }
 
 CPlayer::CPlayer(
-        unsigned int BombNr,
-        unsigned int ExplosionSize)
+        uint32_t BombNr,
+        uint32_t ExplosionSize)
 : m_BombNr(BombNr), m_ExplosionSize(ExplosionSize)
 {
 }

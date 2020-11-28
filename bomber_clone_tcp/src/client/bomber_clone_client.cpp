@@ -20,10 +20,9 @@
 // IN CASE Of CRASH RECOMPILE & CHECK FOR OVERFLOW
 #define BUFFER_SIZE 100000
 
-//int main(int argc, char **argv)
-int main (int argc, char *argv[])
+int32_t main (int32_t argc, char *argv[])
 {
-	srand((unsigned int)time(0));
+	srand((uint32_t)time(0));
 	// Check for parameters
 	/*if(argc < 2)
 	{
@@ -127,15 +126,15 @@ int main (int argc, char *argv[])
 		std::cout << "Server round: " << Global.m_Round << " cycle: " << Global.m_Cycle << "\n";
 		std::cout << "I'm player " << Local.m_PlayerNr;
 
-		if ((unsigned int)Local.m_PlayerNr < State.m_UnitManager.m_PlayerUnits.size())
+		if ((uint32_t)Local.m_PlayerNr < State.m_UnitManager.m_PlayerUnits.size())
 			std::cout << " owning " << State.m_UnitManager.m_PlayerUnits[Local.m_PlayerNr].size() << " units";
 		else
 			std::cout << " invalid id!";
 
 		std::cout << "\n";
-		const unsigned int ExplosionSize = State.m_Player[Local.m_PlayerNr].m_ExplosionSize;
-		const unsigned int BombsInUse = State.m_UnitManager.CountPlayerUnits(Local.m_PlayerNr, EUnitType::Bomb);
-		const unsigned int BombNr = State.m_Player[Local.m_PlayerNr].m_BombNr;
+		const uint32_t ExplosionSize = State.m_Player[Local.m_PlayerNr].m_ExplosionSize;
+		const uint32_t BombsInUse = State.m_UnitManager.CountPlayerUnits(Local.m_PlayerNr, EUnitType::Bomb);
+		const uint32_t BombNr = State.m_Player[Local.m_PlayerNr].m_BombNr;
 		std::cout << "explosion-size: " << ExplosionSize << " ";
 		std::cout << "bomb-nr: " << BombNr << " ";
 		std::cout << "bombs in use: " << BombsInUse << " ";
@@ -147,7 +146,7 @@ int main (int argc, char *argv[])
 
 		std::cout << "\n";
 
-		for (unsigned int iUnit = 0; iUnit < State.m_UnitManager.m_PlayerUnits.size() - 1; iUnit++)
+		for (uint32_t iUnit = 0; iUnit < State.m_UnitManager.m_PlayerUnits.size() - 1; iUnit++)
 		{
 			Tile Pos(State.m_UnitManager.GetHeroPosition(iUnit));
 			if (Pos.IsValid(State.m_LevelGrid) == false)

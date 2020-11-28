@@ -21,15 +21,15 @@ std::vector<CPlayer> CGameSim::UpdatePlayers(
 {
     std::vector<CPlayer> UpdatedPlayer;
 
-    unsigned int PlayerCount = static_cast<unsigned int>(State.m_UnitManager.m_PlayerUnits.size());
-    unsigned int iPlayer;
+    uint32_t PlayerCount = static_cast<uint32_t>(State.m_UnitManager.m_PlayerUnits.size());
+    uint32_t iPlayer;
     for(iPlayer = 0; iPlayer < PlayerCount; iPlayer++)
     {
         const CPlayer CurrentPlayer = State.m_Player[iPlayer];
         CPlayer NewPlayer = CurrentPlayer;
 
-        unsigned int UnitCount = static_cast<unsigned int>(State.m_UnitManager.m_PlayerUnits[iPlayer].size());
-        unsigned int iUnit;
+        uint32_t UnitCount = static_cast<uint32_t>(State.m_UnitManager.m_PlayerUnits[iPlayer].size());
+        uint32_t iUnit;
         for(iUnit = 0; iUnit < UnitCount; iUnit++)
         {
             const CUnit UnitCurrent = State.m_UnitManager.m_PlayerUnits[iPlayer][iUnit];
@@ -53,14 +53,14 @@ std::vector<CPlayer> CGameSim::UpdatePlayers(
 CLevelGrid CGameSim::UpdateGrid(
         const CGameState &State)
 {
-    const unsigned int Width = State.m_LevelGrid.Width();
-    const unsigned int Height = State.m_LevelGrid.Height();
+    const uint32_t Width = State.m_LevelGrid.Width();
+    const uint32_t Height = State.m_LevelGrid.Height();
     CLevelGrid UpdatedGrid(Width, Height);
 
-    unsigned int v;
+    uint32_t v;
     for(v = 0; v < Height; v++)
     {
-        unsigned int u;
+        uint32_t u;
         for(u = 0; u < Width; u++)
         {
             const ETileType CurrentTile = State.m_LevelGrid.Get(u, v);
@@ -75,10 +75,10 @@ CLevelGrid CGameSim::UpdateGrid(
                 break;
             case ETileType::Upgrade_BombCount:
             {
-                unsigned int Collect = 0;
+                uint32_t Collect = 0;
 
-                const unsigned int nPlayer = static_cast<unsigned int>(State.m_UnitManager.m_PlayerUnits.size());
-                unsigned int iPlayer;
+                const uint32_t nPlayer = static_cast<uint32_t>(State.m_UnitManager.m_PlayerUnits.size());
+                uint32_t iPlayer;
                 for(iPlayer = 0; iPlayer < nPlayer; iPlayer++)
                 {
                     if(State.m_UnitManager.CountPlayerUnitsOnTile(iPlayer, EUnitType::Hero, u, v) > 0)
@@ -92,10 +92,10 @@ CLevelGrid CGameSim::UpdateGrid(
             }
             case ETileType::Upgrade_Size:
             {
-                unsigned int Collect = 0;
+                uint32_t Collect = 0;
 
-                const unsigned int nPlayer = static_cast<unsigned int>(State.m_UnitManager.m_PlayerUnits.size());
-                unsigned int iPlayer;
+                const uint32_t nPlayer = static_cast<uint32_t>(State.m_UnitManager.m_PlayerUnits.size());
+                uint32_t iPlayer;
                 for(iPlayer = 0; iPlayer < nPlayer; iPlayer++)
                 {
                     if(State.m_UnitManager.CountPlayerUnitsOnTile(iPlayer, EUnitType::Hero, u, v) > 0)
@@ -124,14 +124,14 @@ CUnitManager CGameSim::UpdateUnits(
 {
     CUnitManager UpdatedUnits;
 
-    unsigned int PlayerCount = static_cast<unsigned int>(State.m_UnitManager.m_PlayerUnits.size());
-    unsigned int iPlayer;
+    uint32_t PlayerCount = static_cast<uint32_t>(State.m_UnitManager.m_PlayerUnits.size());
+    uint32_t iPlayer;
     for(iPlayer = 0; iPlayer < PlayerCount; iPlayer++)
     {
         UpdatedUnits.m_PlayerUnits.push_back(std::vector<CUnit>());
 
-        unsigned int UnitCount = static_cast<unsigned int>(State.m_UnitManager.m_PlayerUnits[iPlayer].size());
-        unsigned int iUnit;
+        uint32_t UnitCount = static_cast<uint32_t>(State.m_UnitManager.m_PlayerUnits[iPlayer].size());
+        uint32_t iUnit;
         for(iUnit = 0; iUnit < UnitCount; iUnit++)
         {
             const CUnit UnitCurrent = State.m_UnitManager.m_PlayerUnits[iPlayer][iUnit];
@@ -164,7 +164,7 @@ CUnitManager CGameSim::UpdateUnits(
                         break;
                     case PLAYER_CONTROL_BOMB:
                     {
-                        const unsigned int BombsInUse = State.m_UnitManager.CountPlayerUnits(iPlayer, EUnitType::Bomb);
+                        const uint32_t BombsInUse = State.m_UnitManager.CountPlayerUnits(iPlayer, EUnitType::Bomb);
                         if(BombsInUse < State.m_Player[iPlayer].m_BombNr)
                         {
                             const CUnit Bomb(
@@ -178,7 +178,7 @@ CUnitManager CGameSim::UpdateUnits(
                     }
                     case PLAYER_CONTROL_TRAP:
                     {
-                        const unsigned int BombsInUse = State.m_UnitManager.CountPlayerUnits(iPlayer, EUnitType::Bomb);
+                        const uint32_t BombsInUse = State.m_UnitManager.CountPlayerUnits(iPlayer, EUnitType::Bomb);
                         if(BombsInUse + 1 < State.m_Player[iPlayer].m_BombNr) // make sure player has at least one bomb to use
                         {
                             const CUnit Bomb(
@@ -225,7 +225,7 @@ CUnitManager CGameSim::UpdateUnits(
                 {
                     if(UnitCurrent.m_Owner < State.m_UnitManager.m_PlayerUnits.size())
                     {
-                        const int Range = State.m_Player[UnitCurrent.m_Owner].m_ExplosionSize;
+                        const uint32_t Range = State.m_Player[UnitCurrent.m_Owner].m_ExplosionSize;
 
                         UpdatedUnits.m_PlayerUnits[iPlayer].push_back(CUnit(UnitCurrent.m_Owner, EUnitType::Fire, UnitCurrent.m_PosX, UnitCurrent.m_PosY, 1));
 
@@ -276,18 +276,18 @@ CUnitManager CGameSim::UpdateUnits(
 void CGameSim::ExplosionBeam(
         CUnitManager &UpdatedUnits,
         const CGameState &State,
-        unsigned int iPlayer,
-        unsigned int x0, unsigned int y0,
-        int dx, int dy, unsigned int r)
+        uint32_t iPlayer,
+        uint32_t x0, uint32_t y0,
+        int32_t dx, int32_t dy, uint32_t r)
 {
-    unsigned int PlayerCount = static_cast<unsigned int>(State.m_UnitManager.m_PlayerUnits.size());
+    uint32_t PlayerCount = static_cast<uint32_t>(State.m_UnitManager.m_PlayerUnits.size());
     if(iPlayer < PlayerCount)
     {
-        unsigned int i;
+        uint32_t i;
         for(i = 1; i <= r; i++)
         {
-            const unsigned int x = x0 + dx * i;
-            const unsigned int y = y0 + dy * i;
+            const uint32_t x = x0 + dx * i;
+            const uint32_t y = y0 + dy * i;
 
             if(State.m_LevelGrid.Get(x, y) == ETileType::Wall)
                 break;

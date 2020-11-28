@@ -1,12 +1,14 @@
 #pragma once
 
+#include <cstdint>
+
 class CAddr
 {
 public:
     CAddr();
-    CAddr(unsigned int IP, unsigned short Port);
+    CAddr(uint32_t IP, unsigned short Port);
 
-    unsigned int m_IP;
+    uint32_t m_IP;
     unsigned short m_Port;
 };
 

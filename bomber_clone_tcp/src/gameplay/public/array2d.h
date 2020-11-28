@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <vector>
 
 // Deklaration
@@ -8,22 +9,22 @@ class TCArray2d
 {
 public:
 	TCArray2d(); // Default-Konstruktor
-	TCArray2d(unsigned int Width, unsigned int Height); // Konstruktor
-	TCArray2d(unsigned int Width, unsigned int Height, const Type& _Val); // Konstruktor
+	TCArray2d(uint32_t Width, uint32_t Height); // Konstruktor
+	TCArray2d(uint32_t Width, uint32_t Height, const Type& _Val); // Konstruktor
 
-	void Resize(unsigned int Width, unsigned int Height);
+	void Resize(uint32_t Width, uint32_t Height);
 
-	void Set(unsigned int x, unsigned int y, Type Value);
-	Type Get(unsigned int x, unsigned int y) const;
+	void Set(uint32_t x, uint32_t y, Type Value);
+	Type Get(uint32_t x, uint32_t y) const;
 
-	unsigned int Width() const; // const: Methode, die keine Membervariablen ver�ndert
-	unsigned int Height() const; // const: Methode, die keine Membervariablen ver�ndert
+	uint32_t Width() const; // const: Methode, die keine Membervariablen ver�ndert
+	uint32_t Height() const; // const: Methode, die keine Membervariablen ver�ndert
 
 private:
-	unsigned int Linearize(unsigned int x, unsigned int y) const;
+	uint32_t Linearize(uint32_t x, uint32_t y) const;
 
-	unsigned int m_Width; // Membervariable
-	unsigned int m_Height; // Membervariable
+	uint32_t m_Width; // Membervariable
+	uint32_t m_Height; // Membervariable
 	std::vector<Type> m_Data; // Membervariable
 };
 
@@ -35,20 +36,20 @@ TCArray2d<Type>::TCArray2d()
 }
 
 template<typename Type>
-TCArray2d<Type>::TCArray2d(unsigned int Width, unsigned int Height)
+TCArray2d<Type>::TCArray2d(uint32_t Width, uint32_t Height)
 	: m_Width(Width), m_Height(Height), m_Data(Width * Height) // Basis-Initialisierer
 {
 }
 
 template<typename Type>
-TCArray2d<Type>::TCArray2d(unsigned int Width, unsigned int Height, const Type& _Val)
+TCArray2d<Type>::TCArray2d(uint32_t Width, uint32_t Height, const Type& _Val)
 	: m_Width(Width), m_Height(Height), m_Data(Width * Height, _Val) // Basis-Initialisierer
 {
 }
 
 
 template<typename Type>
-void TCArray2d<Type>::Resize(unsigned int Width, unsigned int Height)
+void TCArray2d<Type>::Resize(uint32_t Width, uint32_t Height)
 {
 	if (m_Width != Width || m_Height != Height)
 	{
@@ -59,7 +60,7 @@ void TCArray2d<Type>::Resize(unsigned int Width, unsigned int Height)
 }
 
 template<typename Type>
-void TCArray2d<Type>::Set(unsigned int x, unsigned int y, Type Value)
+void TCArray2d<Type>::Set(uint32_t x, uint32_t y, Type Value)
 {
 	if (x < m_Width && y < m_Height)
 	{
@@ -68,7 +69,7 @@ void TCArray2d<Type>::Set(unsigned int x, unsigned int y, Type Value)
 }
 
 template<typename Type>
-Type TCArray2d<Type>::Get(unsigned int x, unsigned int y) const
+Type TCArray2d<Type>::Get(uint32_t x, uint32_t y) const
 {
 	if (x < m_Width && y < m_Height)
 	{
@@ -79,19 +80,19 @@ Type TCArray2d<Type>::Get(unsigned int x, unsigned int y) const
 }
 
 template<typename Type>
-unsigned int TCArray2d<Type>::Width() const
+uint32_t TCArray2d<Type>::Width() const
 {
 	return m_Width;
 }
 
 template<typename Type>
-unsigned int TCArray2d<Type>::Height() const
+uint32_t TCArray2d<Type>::Height() const
 {
 	return m_Height;
 }
 
 template<typename Type>
-unsigned int TCArray2d<Type>::Linearize(unsigned int x, unsigned int y) const
+uint32_t TCArray2d<Type>::Linearize(uint32_t x, uint32_t y) const
 {
 	return x + y * m_Width;
 }

@@ -15,9 +15,9 @@
 // IN CASE Of CRASH RECOMPILE & CHECK FOR OVERFLOW
 #define BUFFER_SIZE 100000
 
-int main(int argc, char **argv)
+int32_t main(int32_t argc, char **argv)
 {
-	srand((unsigned int)time(0));
+	srand((uint32_t)time(0));
 	// Check for parameters
 	/*if(argc < 2)
 	{
@@ -114,13 +114,13 @@ int main(int argc, char **argv)
 		std::cout << "Server round: " << Global.m_Round << " cycle: " << Global.m_Cycle << "\n";
 		std::cout << "I'm player " << Local.m_PlayerNr;
 
-		if ((unsigned int)Local.m_PlayerNr < State.m_UnitManager.m_PlayerUnits.size())
+		if ((uint32_t)Local.m_PlayerNr < State.m_UnitManager.m_PlayerUnits.size())
 			std::cout << " owning " << State.m_UnitManager.m_PlayerUnits[Local.m_PlayerNr].size() << " units";
 		else
 			std::cout << " invalid id!";
 
 		std::cout << "\n";
-		const unsigned int BombsInUse = State.m_UnitManager.CountPlayerUnits(Local.m_PlayerNr, EUnitType::Bomb);
+		const uint32_t BombsInUse = State.m_UnitManager.CountPlayerUnits(Local.m_PlayerNr, EUnitType::Bomb);
 		std::cout << "explosion-size: " << State.m_Player[Local.m_PlayerNr].m_ExplosionSize << " ";
 		std::cout << "bomb-nr: " << State.m_Player[Local.m_PlayerNr].m_BombNr << " ";
 		std::cout << "bombs in use: " << BombsInUse << " ";
@@ -139,10 +139,10 @@ int main(int argc, char **argv)
 			std::cout << "Please enter action:\n";
 			if (Behaviour == "bot")
 			{
-				std::vector<std::pair<unsigned int, unsigned int>> playerPositions;
-				for (unsigned int i = 0; i < State.m_UnitManager.m_PlayerUnits.size(); i++)
+				std::vector<std::pair<uint32_t, uint32_t>> playerPositions;
+				for (uint32_t i = 0; i < State.m_UnitManager.m_PlayerUnits.size(); i++)
 				{
-					std::pair<unsigned int, unsigned int>& Pos = State.m_UnitManager.GetHeroPosition(i);
+					std::pair<uint32_t, uint32_t>& Pos = State.m_UnitManager.GetHeroPosition(i);
 					playerPositions.push_back(Pos);
 					if (Pos.first == -1 || Pos.second == -1)
 						std::cout << "ERROR: player " << i << " has invalid position\n";
@@ -173,7 +173,7 @@ int main(int argc, char **argv)
 			}
 			else if (Behaviour == "random")
 			{
-				const unsigned int r = rand() % 4;
+				const uint32_t r = rand() % 4;
 
 				if (r == 0)
 					Action = PLAYER_CONTROL_MOVE_UP;

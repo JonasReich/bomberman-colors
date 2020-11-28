@@ -12,7 +12,7 @@ public:
             CGameState &State, CLocalState &Local,
             CGlobalState &Global, const char *Buffer);
 
-    static unsigned int Export(
+    static uint32_t Export(
             const CGameState &State, const CLocalState &Local,
             const CGlobalState &Global, char *Buffer);
 

@@ -24,10 +24,10 @@ void CGameIO::ASCIIExport(const CGameState & State, bool _debug)
 		SetConsoleTextAttribute(hConsole, DebugColor::DEBUG_COLOR_DEFAULT);
 	}
 
-	unsigned int y;
+	uint32_t y;
 	for (y = 0; y < State.m_LevelGrid.Height(); y++)
 	{
-		unsigned int x;
+		uint32_t x;
 		for (x = 0; x < State.m_LevelGrid.Width(); x++)
 		{
 			// Set draw color according to DebugColor listed in TileDebugger
@@ -36,7 +36,7 @@ void CGameIO::ASCIIExport(const CGameState & State, bool _debug)
 				Tile currentTile(x, y);
 				SetConsoleTextAttribute(hConsole, DebugColor::DEBUG_COLOR_DEFAULT);
 
-				for (unsigned int i = 0; i < DEBUG_SET_NUMOF; i++)
+				for (uint32_t i = 0; i < DEBUG_SET_NUMOF; i++)
 				{
 					if (VectorContains(TileDebugger::GetTiles((DebugSet)i), currentTile))
 						SetConsoleTextAttribute(hConsole, kColorFromSet[i]);
@@ -141,29 +141,29 @@ void CGameIO::PPMImport(std::istream &InStream, CGameState &State)
 		std::getline(InStream, Comment);
 	}
 
-	unsigned int Width;
+	uint32_t Width;
 	InStream >> Width;
-	unsigned int Height;
+	uint32_t Height;
 	InStream >> Height;
-	int Legacy;
+	int32_t Legacy;
 	InStream >> Legacy;
 
 	State.m_LevelGrid.Resize(Width, Height);
-	unsigned int iPlayer;
+	uint32_t iPlayer;
 	for (iPlayer = 0; iPlayer < State.m_UnitManager.m_PlayerUnits.size(); iPlayer++)
 	{
 		State.m_UnitManager.m_PlayerUnits[iPlayer].clear();
 	}
 
-	unsigned int Row;
+	uint32_t Row;
 	for (Row = 0; Row < Height; Row++)
 	{
-		unsigned int Column;
+		uint32_t Column;
 		for (Column = 0; Column < Width; Column++)
 		{
-			int Red;
-			int Green;
-			int Blue;
+			int32_t Red;
+			int32_t Green;
+			int32_t Blue;
 
 			InStream >> Red;
 			InStream >> Green;
@@ -201,15 +201,15 @@ void CGameIO::PPMExport(
 	OutStream << State.m_LevelGrid.Width() << " " << State.m_LevelGrid.Height() << "\n";
 	OutStream << "255\n";
 
-	unsigned int Row;
+	uint32_t Row;
 	for (Row = 0; Row < State.m_LevelGrid.Height(); Row++)
 	{
-		unsigned int Column;
+		uint32_t Column;
 		for (Column = 0; Column < State.m_LevelGrid.Width(); Column++)
 		{
-			int Red;
-			int Green;
-			int Blue;
+			int32_t Red;
+			int32_t Green;
+			int32_t Blue;
 
 			const ETileType Type = State.m_LevelGrid.Get(Column, Row);
 
@@ -259,7 +259,7 @@ void CGameIO::Save(
 {
 	PPMExport(OutStream, State, Comment);
 
-	/*unsigned int iPlayer;
+	/*uint32_t iPlayer;
 	for(iPlayer = 0; iPlayer < State.m_UnitManager.m_PlayersAndUnits.size(); iPlayer++)
 	{
 		State.m_UnitManager.m_PlayersAndUnits[iPlayer].clear();
@@ -270,7 +270,7 @@ void CGameIO::Load(std::istream &InStream, CGameState &State)
 {
 	PPMImport(InStream, State);
 
-	/*unsigned int iPlayer;
+	/*uint32_t iPlayer;
 	for(iPlayer = 0; iPlayer < State.m_UnitManager.m_PlayersAndUnits.size(); iPlayer++)
 	{
 		State.m_UnitManager.m_PlayersAndUnits[iPlayer].clear();

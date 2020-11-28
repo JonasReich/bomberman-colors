@@ -25,7 +25,7 @@
 #define BUFFER_SIZE 100000
 
 
-int main(int argc, char **argv)
+int32_t main(int32_t argc, char **argv)
 {
     std::cout << "starting dedicated server...\n";
 
@@ -37,7 +37,7 @@ int main(int argc, char **argv)
 	*/
 
     const char *LevelName = (argc > 1) ? argv[1] : "../../dat/dijkstra.ppm";
-    const unsigned int NrOfClients = (argc > 2) ? (atoi(argv[2]) > 4) ? 4 : atoi(argv[2]) : 1;
+    const uint32_t NrOfClients = (argc > 2) ? (atoi(argv[2]) > 4) ? 4 : atoi(argv[2]) : 1;
     const Uint16 Port = (argc > 3) ? atoi(argv[3]) : 2000;
 
     std::cout << "server: ";
@@ -77,7 +77,7 @@ int main(int argc, char **argv)
     std::vector<TCPsocket> ClientSocket(MAX_CLIENTS);
 
     std::cout << "listening at port " << Port << "...\n";
-    unsigned int iClient;
+    uint32_t iClient;
     for(iClient = 0; iClient < NrOfClients; iClient++)
     {
         std::cout << "waiting for client " << iClient << "...\n";
@@ -162,8 +162,8 @@ int main(int argc, char **argv)
             State.m_UnitManager.m_PlayerUnits.push_back(std::vector<CUnit>());
             State.m_UnitManager.m_PlayerUnits[iClient].clear();
 
-            unsigned int SpawnX = ((iClient >> 0) & 1) ? 1 : State.m_LevelGrid.Width() - 2;
-            unsigned int SpawnY = ((iClient >> 1) & 1) ? 1 : State.m_LevelGrid.Height() - 2;
+            uint32_t SpawnX = ((iClient >> 0) & 1) ? 1 : State.m_LevelGrid.Width() - 2;
+            uint32_t SpawnY = ((iClient >> 1) & 1) ? 1 : State.m_LevelGrid.Height() - 2;
 
             const CUnit NewPlayerUnit(iClient, EUnitType::Hero, SpawnX, SpawnY, 0);
             State.m_UnitManager.m_PlayerUnits[iClient].push_back(NewPlayerUnit);
@@ -175,9 +175,9 @@ int main(int argc, char **argv)
             State.m_UnitManager.m_PlayerUnits.push_back(std::vector<CUnit>());
             State.m_UnitManager.m_PlayerUnits[iClient].clear();
             //State.m_UnitManager.m_PlayerUnits[iClient].push_back(CUnit(iClient, EUnitType::Bomb, 1, 2, 0));
-            for(unsigned int v = 0; v < State.m_LevelGrid.Height(); v++)
+            for(uint32_t v = 0; v < State.m_LevelGrid.Height(); v++)
             {
-                for(unsigned int u = 0; u < State.m_LevelGrid.Width(); u++)
+                for(uint32_t u = 0; u < State.m_LevelGrid.Width(); u++)
                 {
                     const ETileType Tile = State.m_LevelGrid.Get(u, v);
                     if(Tile == ETileType::Trap) // spawn trap
@@ -210,12 +210,12 @@ int main(int argc, char **argv)
             CGameIO::ASCIIExport(State);
 
             // distribute game-state to clients
-            unsigned int ConnectionFailsSend = 0;
+            uint32_t ConnectionFailsSend = 0;
             for(iClient = 0; iClient < NrOfClients; iClient++)
             {
                 CLocalState Local;
                 Local.m_PlayerNr = iClient;
-                int Len = CGameStateIO::Export(
+                int32_t Len = CGameStateIO::Export(
                         State, Local, Global,
                         (char *)Buffer); // NOTE: ON CRASH ASSERT LEN < BUFFER_SIZE
 
@@ -230,7 +230,7 @@ int main(int argc, char **argv)
                 Quit = true;
 
             // receive action-requests from clients
-            unsigned int ConnectionFailsReceive = 0;
+            uint32_t ConnectionFailsReceive = 0;
             for(iClient = 0; iClient < NrOfClients; iClient++)
             {
                 if(State.m_UnitManager.CountPlayerUnits(iClient, EUnitType::Hero) <= 0)
@@ -260,7 +260,7 @@ int main(int argc, char **argv)
             // called once every round
             State = CGameSim::UpdateWorld(State, Action);
         
-            unsigned int AliveCount = 0;
+            uint32_t AliveCount = 0;
             for(iClient = 0; iClient < State.m_UnitManager.m_PlayerUnits.size(); iClient++)
             {
                 if(State.m_UnitManager.CountPlayerUnits(iClient, EUnitType::Hero) > 0)

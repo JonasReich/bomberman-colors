@@ -4,12 +4,12 @@ CLevelGrid::CLevelGrid()
 {
 }
 
-CLevelGrid::CLevelGrid(unsigned int Width, unsigned int Height)
+CLevelGrid::CLevelGrid(uint32_t Width, uint32_t Height)
 : TCArray2d<ETileType>(Width, Height)
 {
 }
 
-bool CLevelGrid::TouchesType(unsigned int x, unsigned y, ETileType Type) const
+bool CLevelGrid::TouchesType(uint32_t x, unsigned y, ETileType Type) const
 {
     if(Get(x - 1, y) == Type)
         return true;

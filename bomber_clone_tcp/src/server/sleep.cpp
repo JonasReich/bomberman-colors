@@ -6,7 +6,7 @@
 #include <unistd.h>
 #endif
 
-void CSleep::Do(unsigned int MilliSeconds)
+void CSleep::Do(uint32_t MilliSeconds)
 {
 #ifdef WIN32
     Sleep(MilliSeconds);

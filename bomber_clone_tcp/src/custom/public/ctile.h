@@ -1,14 +1,15 @@
 #pragma once
+
+#include <cstdint>
 #include <queue>
 #include <iostream>
 #include <sstream>
+
 #include "defines.h"
 #include "level_grid.h"
 
-
 struct Tile {
 	static const Tile invalid;
-	typedef unsigned int uint;
 
 	Tile() :
 		x(-1),
@@ -16,13 +17,13 @@ struct Tile {
 	{
 	}
 
-	Tile(uint _x, uint _y) :
+	Tile(uint32_t _x, uint32_t _y) :
 		x(_x),
 		y(_y)
 	{
 	}
 
-	Tile(std::pair<uint, uint> _xy) :
+	Tile(std::pair<uint32_t, uint32_t> _xy) :
 		x(_xy.first),
 		y(_xy.second)
 	{
@@ -43,8 +44,8 @@ struct Tile {
 		return !(*this == _other);
 	}
 
-	uint y;
-	uint x;
+	uint32_t y;
+	uint32_t x;
 
 	bool IsValid(const CLevelGrid& _Level) const
 	{
@@ -90,7 +91,7 @@ struct Tile {
 	std::vector<Tile> GetNeighbours(const CLevelGrid& _Level) const
 	{
 		std::vector<Tile> Neighbours;
-		for (int i = 0; i < kDirection_NumOf; i++) {
+		for (uint32_t i = 0; i < kDirection_NumOf; i++) {
 			Tile n = GetNeighbour(EDirection(i));
 			if (n.IsValid(_Level))
 				Neighbours.push_back(n);

@@ -1,13 +1,15 @@
 #pragma once
 
+#include <cstdint>
+
 // Informations about player, can vary per round.
 class CPlayer
 {
 public:
     CPlayer();
-    CPlayer(unsigned int BombNr,
-            unsigned int ExplosionSize);
+    CPlayer(uint32_t BombNr,
+            uint32_t ExplosionSize);
 
-    unsigned int m_ExplosionSize;
-    unsigned int m_BombNr;
+    uint32_t m_ExplosionSize;
+    uint32_t m_BombNr;
 };

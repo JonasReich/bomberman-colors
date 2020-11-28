@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 // Public server state.
 // This information changes during the game.
 class CGlobalState
@@ -7,8 +9,8 @@ class CGlobalState
 public:
     CGlobalState();
     
-    unsigned int m_Round;
-    unsigned int m_Cycle;
+    uint32_t m_Round;
+    uint32_t m_Cycle;
 
-    unsigned int m_Score[4];
+    uint32_t m_Score[4];
 };

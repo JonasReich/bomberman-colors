@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <queue>
 
 /** Unit type changes behavior and visuals of a unit. */
@@ -22,16 +23,16 @@ class CUnit
 {
 public:
     CUnit();
-    CUnit(unsigned int Owner, EUnitType Type,
-            int PosX, int PosY,
-            unsigned int LifeTime);
+    CUnit(uint32_t Owner, EUnitType Type,
+            uint32_t PosX, uint32_t PosY,
+            uint32_t LifeTime);
 
-    unsigned int m_Owner;
+    uint32_t m_Owner;
     EUnitType m_Type;
-    int m_PosX;
-    int m_PosY;
-    int m_DirX;
-    int m_DirY;
-    unsigned int m_LifeTime;
-	std::pair<unsigned int, unsigned int> GetPosition();
+    uint32_t m_PosX;
+    uint32_t m_PosY;
+    uint32_t m_DirX;
+    uint32_t m_DirY;
+    uint32_t m_LifeTime;
+	std::pair<uint32_t, uint32_t> GetPosition();
 };
