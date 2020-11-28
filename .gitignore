@@ -12,3 +12,4 @@ Debug/
 build/
 cmake_build/
 build32/
+.vscode/
