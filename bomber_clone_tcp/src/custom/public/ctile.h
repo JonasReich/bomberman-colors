@@ -8,6 +8,7 @@
 
 struct Tile {
 	static const Tile invalid;
+	typedef unsigned int uint;
 
 	Tile() :
 		x(-1),
@@ -15,13 +16,13 @@ struct Tile {
 	{
 	}
 
-	Tile(int _x, int _y) :
+	Tile(uint _x, uint _y) :
 		x(_x),
 		y(_y)
 	{
 	}
 
-	Tile(std::pair<int, int> _xy) :
+	Tile(std::pair<uint, uint> _xy) :
 		x(_xy.first),
 		y(_xy.second)
 	{
@@ -42,12 +43,12 @@ struct Tile {
 		return !(*this == _other);
 	}
 
-	int y;
-	int x;
+	uint y;
+	uint x;
 
 	bool IsValid(const CLevelGrid& _Level) const
 	{
-		return y >= 0 && x >= 0 && (int)y < _Level.Height() && (int)x < _Level.Width();
+		return y >= 0 && x >= 0 && y < _Level.Height() && x < _Level.Width();
 	}
 
 	Tile GetNeighbour(EDirection _dir) const

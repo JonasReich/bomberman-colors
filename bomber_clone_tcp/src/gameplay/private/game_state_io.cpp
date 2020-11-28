@@ -106,7 +106,7 @@ unsigned int CGameStateIO::Export(
     }
 
     // Export units
-    unsigned int PlayerCount = State.m_UnitManager.m_PlayerUnits.size();
+    unsigned int PlayerCount = static_cast<unsigned int>(State.m_UnitManager.m_PlayerUnits.size());
     memcpy((void *)(Buffer + Size), (void *)(&PlayerCount), sizeof(unsigned int));
     Size += sizeof(unsigned int);
 
@@ -118,7 +118,7 @@ unsigned int CGameStateIO::Export(
         memcpy((void *)(Buffer + Size), (void *)(&Player), sizeof(CPlayer));
         Size += sizeof(CPlayer);
 
-        unsigned int UnitCount = State.m_UnitManager.m_PlayerUnits[iPlayer].size();
+        unsigned int UnitCount = static_cast<unsigned int>(State.m_UnitManager.m_PlayerUnits[iPlayer].size());
         memcpy((void *)(Buffer + Size), (void *)(&UnitCount), sizeof(unsigned int));
         Size += sizeof(unsigned int);
 

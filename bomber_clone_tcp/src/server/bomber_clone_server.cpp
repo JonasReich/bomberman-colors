@@ -77,7 +77,7 @@ int main(int argc, char **argv)
     std::vector<TCPsocket> ClientSocket(MAX_CLIENTS);
 
     std::cout << "listening at port " << Port << "...\n";
-    size_t iClient;
+    unsigned int iClient;
     for(iClient = 0; iClient < NrOfClients; iClient++)
     {
         std::cout << "waiting for client " << iClient << "...\n";

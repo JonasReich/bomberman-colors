@@ -21,14 +21,14 @@ std::vector<CPlayer> CGameSim::UpdatePlayers(
 {
     std::vector<CPlayer> UpdatedPlayer;
 
-    unsigned int PlayerCount = State.m_UnitManager.m_PlayerUnits.size();
+    unsigned int PlayerCount = static_cast<unsigned int>(State.m_UnitManager.m_PlayerUnits.size());
     unsigned int iPlayer;
     for(iPlayer = 0; iPlayer < PlayerCount; iPlayer++)
     {
         const CPlayer CurrentPlayer = State.m_Player[iPlayer];
         CPlayer NewPlayer = CurrentPlayer;
 
-        unsigned int UnitCount = State.m_UnitManager.m_PlayerUnits[iPlayer].size();
+        unsigned int UnitCount = static_cast<unsigned int>(State.m_UnitManager.m_PlayerUnits[iPlayer].size());
         unsigned int iUnit;
         for(iUnit = 0; iUnit < UnitCount; iUnit++)
         {
@@ -77,7 +77,7 @@ CLevelGrid CGameSim::UpdateGrid(
             {
                 unsigned int Collect = 0;
 
-                const unsigned int nPlayer = State.m_UnitManager.m_PlayerUnits.size();
+                const unsigned int nPlayer = static_cast<unsigned int>(State.m_UnitManager.m_PlayerUnits.size());
                 unsigned int iPlayer;
                 for(iPlayer = 0; iPlayer < nPlayer; iPlayer++)
                 {
@@ -94,7 +94,7 @@ CLevelGrid CGameSim::UpdateGrid(
             {
                 unsigned int Collect = 0;
 
-                const unsigned int nPlayer = State.m_UnitManager.m_PlayerUnits.size();
+                const unsigned int nPlayer = static_cast<unsigned int>(State.m_UnitManager.m_PlayerUnits.size());
                 unsigned int iPlayer;
                 for(iPlayer = 0; iPlayer < nPlayer; iPlayer++)
                 {
@@ -124,13 +124,13 @@ CUnitManager CGameSim::UpdateUnits(
 {
     CUnitManager UpdatedUnits;
 
-    unsigned int PlayerCount = State.m_UnitManager.m_PlayerUnits.size();
+    unsigned int PlayerCount = static_cast<unsigned int>(State.m_UnitManager.m_PlayerUnits.size());
     unsigned int iPlayer;
     for(iPlayer = 0; iPlayer < PlayerCount; iPlayer++)
     {
         UpdatedUnits.m_PlayerUnits.push_back(std::vector<CUnit>());
 
-        unsigned int UnitCount = State.m_UnitManager.m_PlayerUnits[iPlayer].size();
+        unsigned int UnitCount = static_cast<unsigned int>(State.m_UnitManager.m_PlayerUnits[iPlayer].size());
         unsigned int iUnit;
         for(iUnit = 0; iUnit < UnitCount; iUnit++)
         {
@@ -280,7 +280,7 @@ void CGameSim::ExplosionBeam(
         unsigned int x0, unsigned int y0,
         int dx, int dy, unsigned int r)
 {
-    unsigned int PlayerCount = State.m_UnitManager.m_PlayerUnits.size();
+    unsigned int PlayerCount = static_cast<unsigned int>(State.m_UnitManager.m_PlayerUnits.size());
     if(iPlayer < PlayerCount)
     {
         unsigned int i;

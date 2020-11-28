@@ -7,7 +7,7 @@ unsigned int CUnitManager::CountPlayerUnits(
 
     if(iPlayer < m_PlayerUnits.size())
     {
-        const unsigned int CountOfUnits = m_PlayerUnits[iPlayer].size();
+        const unsigned int CountOfUnits = static_cast<unsigned int>(m_PlayerUnits[iPlayer].size());
 
         unsigned int iUnit;
         for(iUnit = 0; iUnit < CountOfUnits; iUnit++)
@@ -27,7 +27,7 @@ std::vector<CUnit> CUnitManager::GetPlayerUnits(unsigned int iPlayer, UnitType T
 
     if(iPlayer < m_PlayerUnits.size())
     {
-        const unsigned int CountOfUnits = m_PlayerUnits[iPlayer].size();
+        const unsigned int CountOfUnits = static_cast<unsigned int>(m_PlayerUnits[iPlayer].size());
 
         unsigned int iUnit;
         for(iUnit = 0; iUnit < CountOfUnits; iUnit++)
@@ -48,7 +48,7 @@ unsigned int CUnitManager::CountPlayerUnitsOnTile(
 
     if(iPlayer < m_PlayerUnits.size())
     {
-        const unsigned int CountOfUnits = m_PlayerUnits[iPlayer].size();
+        const unsigned int CountOfUnits = static_cast<unsigned int>(m_PlayerUnits[iPlayer].size());
 
         unsigned int iUnit;
         for(iUnit = 0; iUnit < CountOfUnits; iUnit++)
@@ -69,7 +69,7 @@ std::vector<CUnit> CUnitManager::GetPlayerUnitsOnTile(
 
     if(iPlayer < m_PlayerUnits.size())
     {
-        const unsigned int CountOfUnits = m_PlayerUnits[iPlayer].size();
+        const unsigned int CountOfUnits = static_cast<unsigned int>(m_PlayerUnits[iPlayer].size());
 
         unsigned int iUnit;
         for(iUnit = 0; iUnit < CountOfUnits; iUnit++)
@@ -193,5 +193,5 @@ std::pair<unsigned int, unsigned int> CUnitManager::GetHeroPosition(unsigned int
 			return std::make_pair(m_PlayerUnits[playerIndex][i].m_PosX, m_PlayerUnits[playerIndex][i].m_PosY);
 	}
 
-	return std::make_pair(-1, -1); // Einheit nicht gefunden - unmöglichen Wert als Fehler-Marker zurückgeben
+	return std::make_pair(-1, -1); // Einheit nicht gefunden - unmï¿½glichen Wert als Fehler-Marker zurï¿½ckgeben
 }
