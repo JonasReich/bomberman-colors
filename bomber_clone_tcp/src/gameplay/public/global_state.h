@@ -1,5 +1,4 @@
-#ifndef GLOBAL_STATE_H
-#define GLOBAL_STATE_H
+#pragma once
 
 // Public server state.
 // This information changes during the game.
@@ -13,5 +12,3 @@ public:
 
     unsigned int m_Score[4];
 };
-
-#endif

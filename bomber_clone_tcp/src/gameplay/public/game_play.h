@@ -1,5 +1,4 @@
-#ifndef GAME_PLAY_H
-#define GAME_PLAY_H
+#pragma once
 
 typedef enum
 {
@@ -13,5 +12,3 @@ typedef enum
     PLAYER_CONTROL_COUNT
 }
 PlayerControlType;
-
-#endif

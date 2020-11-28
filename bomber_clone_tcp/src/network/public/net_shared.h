@@ -1,5 +1,4 @@
-#ifndef NET_SHARED_H
-#define NET_SHARED_H
+#pragma once
 
 #include <string>
 
@@ -53,5 +52,3 @@ bool TCNet<Type>::Recv(TCPsocket Socket, Type &Value)
 
     return true;
 }
-
-#endif

@@ -1,6 +1,4 @@
-// include-guard
-#ifndef ARRAY2D_H
-#define ARRAY2D_H
+#pragma once
 
 #include <vector>
 
@@ -97,5 +95,3 @@ unsigned int TCArray2d<Type>::Linearize(unsigned int x, unsigned int y) const
 {
 	return x + y * m_Width;
 }
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef GAME_LOG_H
-#define GAME_LOG_H
+#pragma once
 
 #include <vector>
 
@@ -17,5 +16,3 @@ public:
 
     static const char *const s_Version;
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef UNIT_H
-#define UNIT_H
+#pragma once
 
 #include <queue>
 
@@ -32,5 +31,3 @@ public:
     unsigned int m_LifeTime;
 	std::pair<unsigned int, unsigned int> GetPosition();
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef GAME_SERVER_H
-#define GAME_SERVER_H
+#pragma once
 
 class CGameServer
 {
@@ -7,5 +6,3 @@ public:
 private:
     CGameServer();
 };
-
-#endif

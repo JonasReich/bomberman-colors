@@ -1,5 +1,4 @@
-#ifndef ADDRESS_H 
-#define ADDRESS_H
+#pragma once
 
 class CAddr
 {
@@ -13,5 +12,3 @@ public:
 
 bool operator==(const CAddr &L, const CAddr &R);
 bool operator<(const CAddr &L, const CAddr &R);
-
-#endif

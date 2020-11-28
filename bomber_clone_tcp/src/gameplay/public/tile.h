@@ -1,5 +1,4 @@
-#ifndef TILE_H
-#define TILE_H
+#pragma once
 
 typedef enum
 {
@@ -15,5 +14,3 @@ typedef enum
     //TILE_TYPE_FIRE,
 }
 TileType;
-
-#endif

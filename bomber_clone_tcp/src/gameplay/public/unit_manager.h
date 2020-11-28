@@ -1,5 +1,4 @@
-#ifndef UNIT_MANAGER_H
-#define UNIT_MANAGER_H
+#pragma once
 
 #include <vector>
 #include "unit.h"
@@ -26,5 +25,3 @@ public:
 
     std::vector<std::vector<CUnit> > m_PlayerUnits;
 };
-
-#endif

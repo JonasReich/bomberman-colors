@@ -1,5 +1,4 @@
-#ifndef GAME_SIM_H
-#define GAME_SIM_H
+#pragma once
 
 #include "game_state.h"
 #include "player.h"
@@ -31,5 +30,3 @@ private:
             unsigned int x, unsigned int y,
             int dx, int dy, unsigned int r);
 };
-
-#endif

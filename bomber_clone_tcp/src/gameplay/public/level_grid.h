@@ -1,5 +1,4 @@
-#ifndef LEVEL_GRID_H
-#define LEVEL_GRID_H
+#pragma once
 
 #include "array2d.h"
 #include "tile.h"
@@ -12,5 +11,3 @@ public:
 
     bool TouchesType(unsigned int x, unsigned int y, TileType Type) const;
 };
-
-#endif

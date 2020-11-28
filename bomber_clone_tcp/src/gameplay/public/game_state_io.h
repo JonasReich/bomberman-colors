@@ -1,5 +1,4 @@
-#ifndef GAME_STATE_IO_H
-#define GAME_STATE_IO_H
+#pragma once
 
 #include "game_state.h"
 #include "local_state.h"
@@ -20,5 +19,3 @@ public:
 private:
     CGameStateIO();
 };
-
-#endif

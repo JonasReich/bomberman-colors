@@ -1,5 +1,4 @@
-#ifndef SLEEP_H
-#define SLEEP_H
+#pragma once
 
 // plattform-independent wrapper for sleep-function
 class CSleep
@@ -10,5 +9,3 @@ public:
 private:
     CSleep();
 };
-
-#endif

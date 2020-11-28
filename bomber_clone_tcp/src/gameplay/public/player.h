@@ -1,5 +1,4 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#pragma once
 
 // Informations about player, can vary per round.
 class CPlayer
@@ -12,5 +11,3 @@ public:
     unsigned int m_ExplosionSize;
     unsigned int m_BombNr;
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef COLOR_DEBUG_H
-#define COLOR_DEBUG_H
+#pragma once
 
 #include <ostream>
 
@@ -96,5 +95,3 @@ private:
 	TileDebugger & operator = (const TileDebugger &);
 	std::vector<Tile> m_tiles[DEBUG_SET_NUMOF];
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef GAME_STATE_H
-#define GAME_STATE_H
+#pragma once
 
 #include "level_grid.h"
 #include "unit_manager.h"
@@ -18,5 +17,3 @@ public:
     CUnitManager m_UnitManager;
     std::vector<CPlayer> m_Player;
 };
-
-#endif
