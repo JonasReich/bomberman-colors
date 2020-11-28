@@ -2,7 +2,6 @@
 cmake_minimum_required(VERSION 3.8)
 
 project(bomber_clone_tcp CXX)
-set(CMAKE_CXX_STANDARD 17)
 
 message("platform: ${CMAKE_GENERATOR_PLATFORM}")
 
@@ -49,6 +48,9 @@ target_link_libraries(bomber_clone_client custom network external::sdl2main user
 set_target_properties(bomber_clone_client PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin/client
 )
+
+# Uncomment this to enforce certain compiler features like c++17 standard
+# target_compile_features(bomber_clone_client PRIVATE cxx_std_17)
 
 # Host Application
 add_executable(bomber_clone_server)
