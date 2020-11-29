@@ -17,13 +17,13 @@ struct Tile {
 	{
 	}
 
-	Tile(uint32_t _x, uint32_t _y) :
+	Tile(int32_t _x, int32_t _y) :
 		x(_x),
 		y(_y)
 	{
 	}
 
-	Tile(std::pair<uint32_t, uint32_t> _xy) :
+	Tile(std::pair<int32_t, int32_t> _xy) :
 		x(_xy.first),
 		y(_xy.second)
 	{
@@ -44,12 +44,15 @@ struct Tile {
 		return !(*this == _other);
 	}
 
-	uint32_t y;
-	uint32_t x;
+	int32_t y;
+	int32_t x;
 
 	bool IsValid(const CLevelGrid& _Level) const
 	{
-		return y >= 0 && x >= 0 && y < _Level.Height() && x < _Level.Width();
+		return y >= 0
+			&& x >= 0
+			&& y < static_cast<int32_t>(_Level.Height())
+			&& x < static_cast<int32_t>(_Level.Width());
 	}
 
 	Tile GetNeighbour(EDirection _dir) const

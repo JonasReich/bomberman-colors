@@ -13,6 +13,7 @@
 
 #include "net_shared.h"
 
+#include "gameplay_defines.h"
 #include "game_io.h"
 #include "game_play.h"
 #include "game_sim.h"
@@ -21,7 +22,6 @@
 #include "player.h"
 
 
-#define MAX_CLIENTS 4
 // MUST BE SAME AS CLIENT BUFFER-SIZE
 // IN CASE Of CRASH RECOMPILE & CHECK FOR OVERFLOW
 #define BUFFER_SIZE 100000
@@ -85,7 +85,7 @@ int32_t main(int32_t argc, char **argv)
         exit(4); // TODO
     }
 
-    std::vector<TCPsocket> ClientSocket(MAX_CLIENTS);
+    std::vector<TCPsocket> ClientSocket(MaxPlayerCount);
 
     std::cout << "listening at port " << Port << "...\n";
     uint32_t iClient;

@@ -7,6 +7,7 @@
 
 #include "net_shared.h"
 
+#include "gameplay_defines.h"
 #include "game_play.h"
 #include "game_state.h"
 #include "game_state_io.h"
@@ -139,7 +140,7 @@ int32_t main (int32_t argc, char *argv[])
 		std::cout << "bomb-nr: " << BombNr << " ";
 		std::cout << "bombs in use: " << BombsInUse << " ";
 
-		if (Local.m_PlayerNr < 4)
+		if (Local.m_PlayerNr < MaxPlayerCount)
 			std::cout << "score: " << Global.m_Score[Local.m_PlayerNr] << " ";
 		else
 			std::cout << "score: - ";

@@ -1,10 +1,5 @@
 #include "unit.h"
 
-CUnit::CUnit()
-: m_Type(EUnitType::None), m_LifeTime(0)
-{
-}
-
 CUnit::CUnit(
         uint32_t Owner,
         EUnitType Type,
@@ -18,5 +13,5 @@ CUnit::CUnit(
 
 std::pair<uint32_t, uint32_t> CUnit::GetPosition()
 {
-	return std::pair<uint32_t, uint32_t>((uint32_t)m_PosX, (uint32_t)m_PosY);
+        return std::pair<uint32_t, uint32_t>((uint32_t)m_PosX, (uint32_t)m_PosY);
 }

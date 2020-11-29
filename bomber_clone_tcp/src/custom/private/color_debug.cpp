@@ -1,5 +1,7 @@
 #include "color_debug.h"
 
+DebugStream DBOUT;
+
 void TileDebugger::AddToDebugSet(DebugSet _set, Tile _tile) {
 	Instance().m_tiles[_set].push_back(_tile);
 }

@@ -18,21 +18,21 @@ enum class EUnitType
     Count
 };
 
-/** A unit is a dynamic entity owned/controlled by one of the playersdw */
+/** A unit is a dynamic entity owned/controlled by one of the players */
 class CUnit
 {
 public:
-    CUnit();
+    CUnit() = default;
     CUnit(uint32_t Owner, EUnitType Type,
             uint32_t PosX, uint32_t PosY,
             uint32_t LifeTime);
 
-    uint32_t m_Owner;
-    EUnitType m_Type;
-    uint32_t m_PosX;
-    uint32_t m_PosY;
-    uint32_t m_DirX;
-    uint32_t m_DirY;
-    uint32_t m_LifeTime;
+    uint32_t m_Owner = 0;
+    EUnitType m_Type = EUnitType::None;
+    uint32_t m_PosX = 0;
+    uint32_t m_PosY = 0;
+    uint32_t m_DirX = 0;
+    uint32_t m_DirY = 0;
+    uint32_t m_LifeTime = 0;
 	std::pair<uint32_t, uint32_t> GetPosition();
 };

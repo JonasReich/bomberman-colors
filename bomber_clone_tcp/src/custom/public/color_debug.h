@@ -9,13 +9,17 @@
 //
 // Usage: DBOUT << "Hello world";
 //
-// Source: http://stackoverflow.com/questions/2571157/debug-only-ostreams-in-c
+// Source: https://stackoverflow.com/questions/2571157/debug-only-ostreams-in-c/2571234#2571234
 // -----------------------------------------
 
 #ifdef _DEBUG
-#define DBOUT std::cout // or any other ostream
+    class DebugStream {};
+    template <typename T>
+    DebugStream &operator<<(DebugStream &s, T) { return s; }
+	extern DebugStream DBOUT;
 #else
-#define DBOUT 0 && std::cout
+    typedef ostream DebugStream;
+	DebugStream DBOUT = std::cout;
 #endif
 
 // -----------------------------------------

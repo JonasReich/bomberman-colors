@@ -6,10 +6,9 @@
 class CPlayer
 {
 public:
-    CPlayer();
-    CPlayer(uint32_t BombNr,
-            uint32_t ExplosionSize);
+    CPlayer() = default;
+    CPlayer(uint32_t BombNr, uint32_t ExplosionSize);
 
-    uint32_t m_ExplosionSize;
-    uint32_t m_BombNr;
+    uint32_t m_ExplosionSize = 2;
+    uint32_t m_BombNr = 1;
 };

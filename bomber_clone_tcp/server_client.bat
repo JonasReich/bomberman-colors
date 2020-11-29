@@ -11,4 +11,4 @@ start %~dp0bin\server\Debug\bomber_clone_server dat\%map%.ppm 1 2000
 timeout 1
 
 :: client
-start %~dp0bin\client\Debug\bomber_clone_client localhost 2000 manual clear
+start %~dp0bin\client\Debug\bomber_clone_client localhost 2000 random clear
