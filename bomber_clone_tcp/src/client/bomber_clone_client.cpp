@@ -17,10 +17,6 @@
 
 #include "color_debug.h"
 
-// MUST BE SAME AS SERVER BUFFER-SIZE
-// IN CASE Of CRASH RECOMPILE & CHECK FOR OVERFLOW
-#define BUFFER_SIZE 100000
-
 int32_t main (int32_t argc, char *argv[])
 {
 	srand((uint32_t)time(0));

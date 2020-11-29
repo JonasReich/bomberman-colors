@@ -21,11 +21,6 @@
 #include "game_state_io.h"
 #include "player.h"
 
-
-// MUST BE SAME AS CLIENT BUFFER-SIZE
-// IN CASE Of CRASH RECOMPILE & CHECK FOR OVERFLOW
-#define BUFFER_SIZE 100000
-
 inline void CSleep(uint32_t MilliSeconds)
 {
 #ifdef WIN32
