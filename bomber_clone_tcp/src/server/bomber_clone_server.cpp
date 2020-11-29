@@ -11,6 +11,9 @@
 #include <unistd.h>
 #endif
 
+#include "SDL.h"
+#include "SDL_net.h"
+
 #include "net_shared.h"
 
 #include "gameplay_defines.h"
@@ -68,7 +71,7 @@ int32_t main(int32_t argc, char **argv)
         exit(3); // TODO
     }
     std::cout << "Server IP: ";
-    std::cout << CNet::TranslateAddr(ServerIP.host);
+    std::cout << net_shared::TranslateAddress(ServerIP.host);
     std::cout << ", port: " << ServerIP.port;
     std::cout << "\n";
 
@@ -98,7 +101,7 @@ int32_t main(int32_t argc, char **argv)
         if(ClientIP)
         {
             std::cout << "(IP ";
-            std::cout << CNet::TranslateAddr(ClientIP->host);
+            std::cout << net_shared::TranslateAddress(ClientIP->host);
             std::cout << " port " << ClientIP->port << ")";
         }
         std::cout << "\n";

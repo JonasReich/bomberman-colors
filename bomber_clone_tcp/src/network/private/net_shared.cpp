@@ -4,7 +4,7 @@
 #include <string>
 #include <sstream>
 
-std::string CNet::TranslateAddr(Uint32 Addr)
+std::string net_shared::TranslateAddress(uint32_t Addr)
 {
     std::stringstream s;
 

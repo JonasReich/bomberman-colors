@@ -5,6 +5,9 @@
 
 #include <windows.h>
 
+#include "SDL.h"
+#include "SDL_net.h"
+
 #include "net_shared.h"
 
 #include "gameplay_defines.h"
@@ -55,12 +58,12 @@ int32_t main (int32_t argc, char *argv[])
 	}
 
 	std::cout << "Server IP: ";
-	std::cout << CNet::TranslateAddr(ServerIP.host);
+	std::cout << net_shared::TranslateAddress(ServerIP.host);
 	std::cout << ", port " << ServerIP.port;
 	std::cout << "\n";
 
 	std::cout << "connecting to server ";
-	std::cout << CNet::TranslateAddr(ServerIP.host) << ":" << DestinationPort;
+	std::cout << net_shared::TranslateAddress(ServerIP.host) << ":" << DestinationPort;
 	std::cout << " (" << DestinationName << ")";
 	std::cout << "...\n";
 	ServerSocket = SDLNet_TCP_Open(&ServerIP);
