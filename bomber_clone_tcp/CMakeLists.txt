@@ -18,7 +18,6 @@ target_sources(gameplay PRIVATE
     ${CMAKE_SOURCE_DIR}/src/gameplay/private/global_state.cpp
     ${CMAKE_SOURCE_DIR}/src/gameplay/private/level_grid.cpp
     ${CMAKE_SOURCE_DIR}/src/gameplay/private/player.cpp
-    ${CMAKE_SOURCE_DIR}/src/gameplay/private/tile.cpp
     ${CMAKE_SOURCE_DIR}/src/gameplay/private/unit.cpp
     ${CMAKE_SOURCE_DIR}/src/gameplay/private/unit_manager.cpp
 )
@@ -47,7 +46,6 @@ add_executable(bomber_clone_server)
 target_include_directories(bomber_clone_server PUBLIC ${CMAKE_SOURCE_DIR}/src/client)
 target_sources(bomber_clone_server PRIVATE
     ${CMAKE_SOURCE_DIR}/src/server/bomber_clone_server.cpp
-    ${CMAKE_SOURCE_DIR}/src/server/game_log.cpp
 )
 target_link_libraries(bomber_clone_server gameplay network external::sdl2main user32 advapi32 winmm)
 set_target_properties(bomber_clone_server PROPERTIES
