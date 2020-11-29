@@ -1,9 +1,5 @@
 #include "level_grid.h"
 
-CLevelGrid::CLevelGrid()
-{
-}
-
 CLevelGrid::CLevelGrid(uint32_t Width, uint32_t Height)
 : TCArray2d<ETileType>(Width, Height)
 {

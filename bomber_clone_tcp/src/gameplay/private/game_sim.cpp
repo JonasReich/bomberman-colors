@@ -141,7 +141,6 @@ CUnitManager CGameSim::UpdateUnits(
             switch(UnitCurrent.m_Type)
             {
             case EUnitType::Hero:
-                //if(State.m_LevelGrid.Get(UnitCurrent.m_PosX, UnitCurrent.m_PosY) == 
                 if(State.m_UnitManager.TileContains(UnitCurrent.m_PosX, UnitCurrent.m_PosY, EUnitType::Fire))
                 {
                     // delete hero by not re-inserting in queue
@@ -212,12 +211,6 @@ CUnitManager CGameSim::UpdateUnits(
                 {
                     if(UnitNew.m_LifeTime > 1)
                         UnitNew.m_LifeTime--;
-
-                    /*if(State.m_UnitManager.CountAllUnitsOnTile(EUnitType::Fire, UnitCurrent.m_PosX, UnitCurrent.m_PosY) > 0)
-                    {
-                        //if(UnitCurrent.m_LifeTime > 1)
-                            UnitNew.m_LifeTime = 1; // explode in next frame
-                    }*/
 
                     UpdatedUnits.m_PlayerUnits[iPlayer].push_back(UnitNew);
                 }

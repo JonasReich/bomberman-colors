@@ -6,6 +6,7 @@
 
 #include <windows.h>
 
+#include "gameplay_defines.h"
 #include "game_io.h"
 #include "vectorExtensions.h"
 #include "color_debug.h"
@@ -64,17 +65,11 @@ void CGameIO::ASCIIExport(const CGameState & State, bool _debug)
 					break;
 				case EUnitType::Hero:
 				{
-					//std::cout << "!!";
+					static_assert(MaxPlayerCount < 10, "MaxPlayerCount must be smaller than 10 for this code to work");
 					const char PlayerChar = '0' + (Unit.m_Owner % 10);
 					std::cout << PlayerChar << PlayerChar;
 					break;
 				}
-				/*case UNIT_TYPE_ROCK:
-					std::cout << "()";
-					break;*/
-					/*case UNIT_TYPE_SHOT:
-						std::cout << "<>";
-						break;*/
 				default:
 					std::cout << "!?";
 				}
@@ -91,12 +86,6 @@ void CGameIO::ASCIIExport(const CGameState & State, bool _debug)
 				case ETileType::Wall:
 					std::cout << "##";
 					break;
-					/*case TILE_TYPE_FUEL:
-						std::cout << "[]";
-						break;*/
-						/*case TILE_TYPE_FIRE:
-							std::cout << "%%";
-							break;*/
 				case ETileType::Rock:
 					std::cout << "::";
 					break;
@@ -254,25 +243,12 @@ void CGameIO::PPMExport(
 	}
 }
 
-void CGameIO::Save(
-	std::ostream &OutStream, const CGameState &State, const char *Comment)
+void CGameIO::Save(std::ostream &OutStream, const CGameState &State, const char *Comment)
 {
 	PPMExport(OutStream, State, Comment);
-
-	/*uint32_t iPlayer;
-	for(iPlayer = 0; iPlayer < State.m_UnitManager.m_PlayersAndUnits.size(); iPlayer++)
-	{
-		State.m_UnitManager.m_PlayersAndUnits[iPlayer].clear();
-	}*/
 }
 
 void CGameIO::Load(std::istream &InStream, CGameState &State)
 {
 	PPMImport(InStream, State);
-
-	/*uint32_t iPlayer;
-	for(iPlayer = 0; iPlayer < State.m_UnitManager.m_PlayersAndUnits.size(); iPlayer++)
-	{
-		State.m_UnitManager.m_PlayersAndUnits[iPlayer].clear();
-	}*/
 }

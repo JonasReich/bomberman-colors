@@ -7,5 +7,5 @@
 class CLocalState
 {
 public:
-    int32_t m_PlayerNr = 0;
+    uint32_t m_PlayerNr = 0;
 };

@@ -34,7 +34,7 @@ int32_t main (int32_t argc, char *argv[])
 	}*/
 
 	const char *DestinationName = (argc > 1) ? argv[1] : "localhost";
-	const Uint16 DestinationPort = (argc > 2) ? atoi(argv[2]) : 2000;
+	const Uint16 DestinationPort = static_cast<uint16_t>((argc > 2) ? atoi(argv[2]) : 2000);
 	const std::string Behaviour = (argc > 3) ? argv[3] : "bot";
 	// set 4th input parameter to "clear" to clear console
 	// at the beginning of every turn
@@ -58,7 +58,6 @@ int32_t main (int32_t argc, char *argv[])
 		exit(3);
 	}
 
-	Uint32 ServerIPHost = ServerIP.host;
 	std::cout << "Server IP: ";
 	std::cout << CNet::TranslateAddr(ServerIP.host);
 	std::cout << ", port " << ServerIP.port;

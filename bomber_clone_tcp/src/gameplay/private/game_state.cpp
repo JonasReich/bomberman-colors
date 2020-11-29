@@ -1,9 +1,5 @@
 #include "game_state.h"
 
-CGameState::CGameState()
-{
-}
-
 CGameState::CGameState(
         const CLevelGrid &LevelGrid,
         const CUnitManager &Units,

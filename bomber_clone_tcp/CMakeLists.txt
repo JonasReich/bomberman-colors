@@ -70,3 +70,8 @@ add_custom_command(TARGET bomber_clone_client POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different "${sdl2_dll}" $<TARGET_FILE_DIR:bomber_clone_server>
     COMMAND ${CMAKE_COMMAND} -E copy_if_different "${sdl2net_dll}" $<TARGET_FILE_DIR:bomber_clone_server>
 )
+
+if(MSVC)
+    target_compile_options(bomber_clone_client PRIVATE /W4)
+    target_compile_options(bomber_clone_server PRIVATE /W4)
+endif()

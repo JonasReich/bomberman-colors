@@ -7,7 +7,7 @@
 class CGameState
 {
 public:
-    CGameState();
+    CGameState() = default;
     CGameState(
             const CLevelGrid &LevelGrid,
             const CUnitManager &Units,

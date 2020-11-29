@@ -185,13 +185,14 @@ bool CUnitManager::TouchesType(uint32_t x, uint32_t y, EUnitType Type) const
             || TileContains(x, y - 1, Type) || TileContains(x, y + 1, Type);
 }
 
-std::pair<uint32_t, uint32_t> CUnitManager::GetHeroPosition(uint32_t playerIndex)const
+std::pair<int32_t, int32_t> CUnitManager::GetHeroPosition(uint32_t playerIndex)const
 {
 	for (uint32_t i = 0; i < m_PlayerUnits[playerIndex].size(); i++)
 	{
 		if (m_PlayerUnits[playerIndex][i].m_Type == EUnitType::Hero)
 			return std::make_pair(m_PlayerUnits[playerIndex][i].m_PosX, m_PlayerUnits[playerIndex][i].m_PosY);
 	}
-
-	return std::make_pair(-1, -1); // Einheit nicht gefunden - unm�glichen Wert als Fehler-Marker zur�ckgeben
+    
+    // Unit not found. Return impossible value as error.
+	return std::make_pair(-1, -1);
 }

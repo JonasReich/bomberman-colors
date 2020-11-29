@@ -7,7 +7,7 @@
 class CUnitManager
 {
 public:
-	std::pair<uint32_t, uint32_t> GetHeroPosition(uint32_t playerIndex)const;
+	std::pair<int32_t, int32_t> GetHeroPosition(uint32_t playerIndex)const;
 
     uint32_t CountPlayerUnits(uint32_t Player, EUnitType Type) const;
     std::vector<CUnit> GetPlayerUnits(uint32_t Player, EUnitType Type) const;
@@ -24,5 +24,7 @@ public:
     bool TileContains(uint32_t x, uint32_t y, EUnitType Type) const;
     bool TouchesType(uint32_t x, uint32_t y, EUnitType Type) const;
 
+    // List of all units for each player.
+    // Indexed by player ID.
     std::vector<std::vector<CUnit> > m_PlayerUnits;
 };

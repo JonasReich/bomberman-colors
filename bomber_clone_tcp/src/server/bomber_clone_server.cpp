@@ -49,7 +49,7 @@ int32_t main(int32_t argc, char **argv)
 
     const char *LevelName = (argc > 1) ? argv[1] : "../../dat/dijkstra.ppm";
     const uint32_t NrOfClients = (argc > 2) ? (atoi(argv[2]) > 4) ? 4 : atoi(argv[2]) : 1;
-    const Uint16 Port = (argc > 3) ? atoi(argv[3]) : 2000;
+    const uint16_t Port = static_cast<uint16_t>((argc > 3) ? atoi(argv[3]) : 2000U);
 
     std::cout << "server: ";
     std::cout << "level " << LevelName << ", ";
@@ -91,8 +91,7 @@ int32_t main(int32_t argc, char **argv)
     uint32_t iClient;
     for(iClient = 0; iClient < NrOfClients; iClient++)
     {
-        std::cout << "waiting for client " << iClient << "...\n";
-        //std::cout << "waiting for client " << iClient << " of " << NrOfClients << "...\n";
+        std::cout << "waiting for client " << iClient << " of " << NrOfClients << "...\n";
 
         do
         {
@@ -185,7 +184,6 @@ int32_t main(int32_t argc, char **argv)
             State.m_Player.push_back(CPlayer());
             State.m_UnitManager.m_PlayerUnits.push_back(std::vector<CUnit>());
             State.m_UnitManager.m_PlayerUnits[iClient].clear();
-            //State.m_UnitManager.m_PlayerUnits[iClient].push_back(CUnit(iClient, EUnitType::Bomb, 1, 2, 0));
             for(uint32_t v = 0; v < State.m_LevelGrid.Height(); v++)
             {
                 for(uint32_t u = 0; u < State.m_LevelGrid.Width(); u++)
@@ -226,7 +224,7 @@ int32_t main(int32_t argc, char **argv)
             {
                 CLocalState Local;
                 Local.m_PlayerNr = iClient;
-                int32_t Len = CGameStateIO::Export(
+                CGameStateIO::Export(
                         State, Local, Global,
                         (char *)Buffer); // NOTE: ON CRASH ASSERT LEN < BUFFER_SIZE
 
@@ -304,7 +302,6 @@ int32_t main(int32_t argc, char **argv)
 
         for(iClient = 0; iClient < State.m_UnitManager.m_PlayerUnits.size(); iClient++)
         {
-            //std::cout << "Player " << iClient << " score " << Global.m_Score[iClient] << "\n";
             std::cout << "Player " << PlayerNames[iClient] << " score " << Global.m_Score[iClient] << "\n";
         }
 
