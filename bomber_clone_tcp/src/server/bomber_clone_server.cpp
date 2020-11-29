@@ -5,9 +5,13 @@
 #include <sstream>
 #include <map>
 
-#include "net_shared.h"
+#ifdef WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
 
-#include "game_server.h"
+#include "net_shared.h"
 
 #include "game_io.h"
 #include "game_play.h"
@@ -16,13 +20,20 @@
 #include "game_state_io.h"
 #include "player.h"
 
-#include "sleep.h"
-
 
 #define MAX_CLIENTS 4
 // MUST BE SAME AS CLIENT BUFFER-SIZE
 // IN CASE Of CRASH RECOMPILE & CHECK FOR OVERFLOW
 #define BUFFER_SIZE 100000
+
+inline void CSleep(uint32_t MilliSeconds)
+{
+#ifdef WIN32
+    Sleep(MilliSeconds);
+#else
+    sleep(MilliSeconds);
+#endif
+}
 
 
 int32_t main(int32_t argc, char **argv)
@@ -255,7 +266,7 @@ int32_t main(int32_t argc, char **argv)
             if(ConnectionFailsReceive >= NrOfClients)
                  Quit = true;
 
-            CSleep::Do(50);
+            CSleep(50);
 
             // called once every round
             State = CGameSim::UpdateWorld(State, Action);

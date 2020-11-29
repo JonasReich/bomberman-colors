@@ -182,6 +182,21 @@ int32_t main (int32_t argc, char *argv[])
 				CGameIO::ASCIIExport(State, true);
 
 			}
+			else if (Behaviour == "random")
+			{
+				const uint32_t r = rand() % 4;
+
+				if (r == 0)
+					Action = PLAYER_CONTROL_MOVE_UP;
+				else if (r == 1)
+					Action = PLAYER_CONTROL_MOVE_DOWN;
+				else if (r == 2)
+					Action = PLAYER_CONTROL_MOVE_LEFT;
+				else if (r == 3)
+					Action = PLAYER_CONTROL_MOVE_RIGHT;
+				else
+					Action = PLAYER_CONTROL_NONE;
+			}
 			else // if(Behaviour == "manual")
 			{
 				std::string Line;

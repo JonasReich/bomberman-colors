@@ -55,7 +55,6 @@ target_include_directories(bomber_clone_server PUBLIC ${CMAKE_SOURCE_DIR}/src/cl
 target_sources(bomber_clone_server PRIVATE
     ${CMAKE_SOURCE_DIR}/src/server/bomber_clone_server.cpp
     ${CMAKE_SOURCE_DIR}/src/server/game_log.cpp
-    ${CMAKE_SOURCE_DIR}/src/server/sleep.cpp
 )
 target_link_libraries(bomber_clone_server custom network external::sdl2main user32 advapi32 winmm)
 set_target_properties(bomber_clone_server PROPERTIES
