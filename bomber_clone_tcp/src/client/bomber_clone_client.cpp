@@ -2,26 +2,27 @@
 #include <ctime>
 #include <stdlib.h>
 #include <functional>
-#include <consoleapi.h>
 
-#include "../network/net_shared.h"
+#include <windows.h>
 
-#include "../gameplay/game_play.h"
-#include "../gameplay/game_state.h"
-#include "../gameplay/game_state_io.h"
-#include "../gameplay/game_io.h"
-#include "../gameplay/game_sim.h"
-#include "../custom/ctile.h"
+#include "SDL.h"
+#include "SDL_net.h"
 
-#include "../custom/color_debug.h"
+#include "net_shared.h"
 
-// MUST BE SAME AS SERVER BUFFER-SIZE
-// IN CASE Of CRASH RECOMPILE & CHECK FOR OVERFLOW
-#define BUFFER_SIZE 100000
+#include "gameplay_defines.h"
+#include "game_play.h"
+#include "game_state.h"
+#include "game_state_io.h"
+#include "game_io.h"
+#include "game_sim.h"
+#include "ctile.h"
 
-int main(int argc, char **argv)
+#include "color_debug.h"
+
+int32_t main (int32_t argc, char *argv[])
 {
-	srand((unsigned int)time(0));
+	srand((uint32_t)time(0));
 	// Check for parameters
 	/*if(argc < 2)
 	{
@@ -32,7 +33,7 @@ int main(int argc, char **argv)
 	}*/
 
 	const char *DestinationName = (argc > 1) ? argv[1] : "localhost";
-	const Uint16 DestinationPort = (argc > 2) ? atoi(argv[2]) : 2000;
+	const Uint16 DestinationPort = static_cast<uint16_t>((argc > 2) ? atoi(argv[2]) : 2000);
 	const std::string Behaviour = (argc > 3) ? argv[3] : "bot";
 	// set 4th input parameter to "clear" to clear console
 	// at the beginning of every turn
@@ -56,14 +57,13 @@ int main(int argc, char **argv)
 		exit(3);
 	}
 
-	Uint32 ServerIPHost = ServerIP.host;
 	std::cout << "Server IP: ";
-	std::cout << CNet::TranslateAddr(ServerIP.host);
+	std::cout << net_shared::TranslateAddress(ServerIP.host);
 	std::cout << ", port " << ServerIP.port;
 	std::cout << "\n";
 
 	std::cout << "connecting to server ";
-	std::cout << CNet::TranslateAddr(ServerIP.host) << ":" << DestinationPort;
+	std::cout << net_shared::TranslateAddress(ServerIP.host) << ":" << DestinationPort;
 	std::cout << " (" << DestinationName << ")";
 	std::cout << "...\n";
 	ServerSocket = SDLNet_TCP_Open(&ServerIP);
@@ -120,32 +120,32 @@ int main(int argc, char **argv)
 
 		// Don't print uncolored playfield in "bot mode"
 		if(Behaviour != "bot")
-			CGameIO::ASCIIExport(State);
+			CGameIO::ASCIIExport(State, true);
 
 		std::cout << "Server round: " << Global.m_Round << " cycle: " << Global.m_Cycle << "\n";
 		std::cout << "I'm player " << Local.m_PlayerNr;
 
-		if ((unsigned int)Local.m_PlayerNr < State.m_UnitManager.m_PlayerUnits.size())
+		if ((uint32_t)Local.m_PlayerNr < State.m_UnitManager.m_PlayerUnits.size())
 			std::cout << " owning " << State.m_UnitManager.m_PlayerUnits[Local.m_PlayerNr].size() << " units";
 		else
 			std::cout << " invalid id!";
 
 		std::cout << "\n";
-		const unsigned int ExplosionSize = State.m_Player[Local.m_PlayerNr].m_ExplosionSize;
-		const unsigned int BombsInUse = State.m_UnitManager.CountPlayerUnits(Local.m_PlayerNr, UNIT_TYPE_BOMB);
-		const unsigned int BombNr = State.m_Player[Local.m_PlayerNr].m_BombNr;
+		const uint32_t ExplosionSize = State.m_Player[Local.m_PlayerNr].m_ExplosionSize;
+		const uint32_t BombsInUse = State.m_UnitManager.CountPlayerUnits(Local.m_PlayerNr, EUnitType::Bomb);
+		const uint32_t BombNr = State.m_Player[Local.m_PlayerNr].m_BombNr;
 		std::cout << "explosion-size: " << ExplosionSize << " ";
 		std::cout << "bomb-nr: " << BombNr << " ";
 		std::cout << "bombs in use: " << BombsInUse << " ";
 
-		if (Local.m_PlayerNr < 4)
+		if (Local.m_PlayerNr < MaxPlayerCount)
 			std::cout << "score: " << Global.m_Score[Local.m_PlayerNr] << " ";
 		else
 			std::cout << "score: - ";
 
 		std::cout << "\n";
 
-		for (unsigned int iUnit = 0; iUnit < State.m_UnitManager.m_PlayerUnits.size() - 1; iUnit++)
+		for (uint32_t iUnit = 0; iUnit < State.m_UnitManager.m_PlayerUnits.size() - 1; iUnit++)
 		{
 			Tile Pos(State.m_UnitManager.GetHeroPosition(iUnit));
 			if (Pos.IsValid(State.m_LevelGrid) == false)
@@ -161,7 +161,7 @@ int main(int argc, char **argv)
 
 		PlayerControlType Action = PLAYER_CONTROL_NONE;
 
-		if (State.m_UnitManager.CountPlayerUnits(Local.m_PlayerNr, UNIT_TYPE_HERO) > 0)
+		if (State.m_UnitManager.CountPlayerUnits(Local.m_PlayerNr, EUnitType::Hero) > 0)
 		{
 			std::cout << "Please enter action:\n";
 
@@ -180,6 +180,21 @@ int main(int argc, char **argv)
 				// Print a colorized version of current game state
 				CGameIO::ASCIIExport(State, true);
 
+			}
+			else if (Behaviour == "random")
+			{
+				const uint32_t r = rand() % 4;
+
+				if (r == 0)
+					Action = PLAYER_CONTROL_MOVE_UP;
+				else if (r == 1)
+					Action = PLAYER_CONTROL_MOVE_DOWN;
+				else if (r == 2)
+					Action = PLAYER_CONTROL_MOVE_LEFT;
+				else if (r == 3)
+					Action = PLAYER_CONTROL_MOVE_RIGHT;
+				else
+					Action = PLAYER_CONTROL_NONE;
 			}
 			else // if(Behaviour == "manual")
 			{

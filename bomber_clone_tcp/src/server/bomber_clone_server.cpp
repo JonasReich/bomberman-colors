@@ -5,27 +5,36 @@
 #include <sstream>
 #include <map>
 
-#include "../network/net_shared.h"
+#ifdef WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
 
-#include "game_server.h"
+#include "SDL.h"
+#include "SDL_net.h"
 
-#include "../gameplay/game_io.h"
-#include "../gameplay/game_play.h"
-#include "../gameplay/game_sim.h"
-#include "../gameplay/game_state.h"
-#include "../gameplay/game_state_io.h"
-#include "../gameplay/player.h"
+#include "net_shared.h"
 
-#include "sleep.h"
+#include "gameplay_defines.h"
+#include "game_io.h"
+#include "game_play.h"
+#include "game_sim.h"
+#include "game_state.h"
+#include "game_state_io.h"
+#include "player.h"
+
+inline void CSleep(uint32_t MilliSeconds)
+{
+#ifdef WIN32
+    Sleep(MilliSeconds);
+#else
+    sleep(MilliSeconds);
+#endif
+}
 
 
-#define MAX_CLIENTS 4
-// MUST BE SAME AS CLIENT BUFFER-SIZE
-// IN CASE Of CRASH RECOMPILE & CHECK FOR OVERFLOW
-#define BUFFER_SIZE 100000
-
-
-int main(int argc, char **argv)
+int32_t main(int32_t argc, char **argv)
 {
     std::cout << "starting dedicated server...\n";
 
@@ -37,8 +46,8 @@ int main(int argc, char **argv)
 	*/
 
     const char *LevelName = (argc > 1) ? argv[1] : "../../dat/dijkstra.ppm";
-    const unsigned int NrOfClients = (argc > 2) ? (atoi(argv[2]) > 4) ? 4 : atoi(argv[2]) : 1;
-    const Uint16 Port = (argc > 3) ? atoi(argv[3]) : 2000;
+    const uint32_t NrOfClients = (argc > 2) ? (atoi(argv[2]) > 4) ? 4 : atoi(argv[2]) : 1;
+    const uint16_t Port = static_cast<uint16_t>((argc > 3) ? atoi(argv[3]) : 2000U);
 
     std::cout << "server: ";
     std::cout << "level " << LevelName << ", ";
@@ -62,7 +71,7 @@ int main(int argc, char **argv)
         exit(3); // TODO
     }
     std::cout << "Server IP: ";
-    std::cout << CNet::TranslateAddr(ServerIP.host);
+    std::cout << net_shared::TranslateAddress(ServerIP.host);
     std::cout << ", port: " << ServerIP.port;
     std::cout << "\n";
 
@@ -74,14 +83,13 @@ int main(int argc, char **argv)
         exit(4); // TODO
     }
 
-    std::vector<TCPsocket> ClientSocket(MAX_CLIENTS);
+    std::vector<TCPsocket> ClientSocket(MaxPlayerCount);
 
     std::cout << "listening at port " << Port << "...\n";
-    size_t iClient;
+    uint32_t iClient;
     for(iClient = 0; iClient < NrOfClients; iClient++)
     {
-        std::cout << "waiting for client " << iClient << "...\n";
-        //std::cout << "waiting for client " << iClient << " of " << NrOfClients << "...\n";
+        std::cout << "waiting for client " << iClient << " of " << NrOfClients << "...\n";
 
         do
         {
@@ -93,7 +101,7 @@ int main(int argc, char **argv)
         if(ClientIP)
         {
             std::cout << "(IP ";
-            std::cout << CNet::TranslateAddr(ClientIP->host);
+            std::cout << net_shared::TranslateAddress(ClientIP->host);
             std::cout << " port " << ClientIP->port << ")";
         }
         std::cout << "\n";
@@ -162,10 +170,10 @@ int main(int argc, char **argv)
             State.m_UnitManager.m_PlayerUnits.push_back(std::vector<CUnit>());
             State.m_UnitManager.m_PlayerUnits[iClient].clear();
 
-            unsigned int SpawnX = ((iClient >> 0) & 1) ? 1 : State.m_LevelGrid.Width() - 2;
-            unsigned int SpawnY = ((iClient >> 1) & 1) ? 1 : State.m_LevelGrid.Height() - 2;
+            uint32_t SpawnX = ((iClient >> 0) & 1) ? 1 : State.m_LevelGrid.Width() - 2;
+            uint32_t SpawnY = ((iClient >> 1) & 1) ? 1 : State.m_LevelGrid.Height() - 2;
 
-            const CUnit NewPlayerUnit(iClient, UNIT_TYPE_HERO, SpawnX, SpawnY, 0);
+            const CUnit NewPlayerUnit(iClient, EUnitType::Hero, SpawnX, SpawnY, 0);
             State.m_UnitManager.m_PlayerUnits[iClient].push_back(NewPlayerUnit);
         }
 
@@ -174,21 +182,20 @@ int main(int argc, char **argv)
             State.m_Player.push_back(CPlayer());
             State.m_UnitManager.m_PlayerUnits.push_back(std::vector<CUnit>());
             State.m_UnitManager.m_PlayerUnits[iClient].clear();
-            //State.m_UnitManager.m_PlayerUnits[iClient].push_back(CUnit(iClient, UNIT_TYPE_BOMB, 1, 2, 0));
-            for(unsigned int v = 0; v < State.m_LevelGrid.Height(); v++)
+            for(uint32_t v = 0; v < State.m_LevelGrid.Height(); v++)
             {
-                for(unsigned int u = 0; u < State.m_LevelGrid.Width(); u++)
+                for(uint32_t u = 0; u < State.m_LevelGrid.Width(); u++)
                 {
-                    const TileType Tile = State.m_LevelGrid.Get(u, v);
-                    if(Tile == TILE_TYPE_TRAP) // spawn trap
+                    const ETileType Tile = State.m_LevelGrid.Get(u, v);
+                    if(Tile == ETileType::Trap) // spawn trap
                     {
-                        State.m_LevelGrid.Set(u, v, TILE_TYPE_FREE);
-                        State.m_UnitManager.m_PlayerUnits[iClient].push_back(CUnit(iClient, UNIT_TYPE_BOMB, u, v, 0));
+                        State.m_LevelGrid.Set(u, v, ETileType::Free);
+                        State.m_UnitManager.m_PlayerUnits[iClient].push_back(CUnit(iClient, EUnitType::Bomb, u, v, 0));
                     }
-                    else if(Tile == TILE_TYPE_FUSE) // spawn bomb
+                    else if(Tile == ETileType::Fuse) // spawn bomb
                     {
-                        State.m_LevelGrid.Set(u, v, TILE_TYPE_FREE);
-                        State.m_UnitManager.m_PlayerUnits[iClient].push_back(CUnit(iClient, UNIT_TYPE_BOMB, u, v, 1));
+                        State.m_LevelGrid.Set(u, v, ETileType::Free);
+                        State.m_UnitManager.m_PlayerUnits[iClient].push_back(CUnit(iClient, EUnitType::Bomb, u, v, 1));
                     }
                 }
             }
@@ -210,12 +217,12 @@ int main(int argc, char **argv)
             CGameIO::ASCIIExport(State);
 
             // distribute game-state to clients
-            unsigned int ConnectionFailsSend = 0;
+            uint32_t ConnectionFailsSend = 0;
             for(iClient = 0; iClient < NrOfClients; iClient++)
             {
                 CLocalState Local;
                 Local.m_PlayerNr = iClient;
-                int Len = CGameStateIO::Export(
+                CGameStateIO::Export(
                         State, Local, Global,
                         (char *)Buffer); // NOTE: ON CRASH ASSERT LEN < BUFFER_SIZE
 
@@ -230,10 +237,10 @@ int main(int argc, char **argv)
                 Quit = true;
 
             // receive action-requests from clients
-            unsigned int ConnectionFailsReceive = 0;
+            uint32_t ConnectionFailsReceive = 0;
             for(iClient = 0; iClient < NrOfClients; iClient++)
             {
-                if(State.m_UnitManager.CountPlayerUnits(iClient, UNIT_TYPE_HERO) <= 0)
+                if(State.m_UnitManager.CountPlayerUnits(iClient, EUnitType::Hero) <= 0)
                 {
                     std::cout << "skipping hero-less player " << iClient << "\n";
                     continue;
@@ -255,15 +262,15 @@ int main(int argc, char **argv)
             if(ConnectionFailsReceive >= NrOfClients)
                  Quit = true;
 
-            CSleep::Do(50);
+            CSleep(50);
 
             // called once every round
             State = CGameSim::UpdateWorld(State, Action);
         
-            unsigned int AliveCount = 0;
+            uint32_t AliveCount = 0;
             for(iClient = 0; iClient < State.m_UnitManager.m_PlayerUnits.size(); iClient++)
             {
-                if(State.m_UnitManager.CountPlayerUnits(iClient, UNIT_TYPE_HERO) > 0)
+                if(State.m_UnitManager.CountPlayerUnits(iClient, EUnitType::Hero) > 0)
                     AliveCount++;
                 else
                     std::cout << "client " << iClient << " has no more heros\n";
@@ -285,7 +292,7 @@ int main(int argc, char **argv)
 
         for(iClient = 0; iClient < State.m_UnitManager.m_PlayerUnits.size(); iClient++)
         {
-            if(State.m_UnitManager.CountPlayerUnits(iClient, UNIT_TYPE_HERO) > 0)
+            if(State.m_UnitManager.CountPlayerUnits(iClient, EUnitType::Hero) > 0)
                 Global.m_Score[iClient]++;
         }
 
@@ -293,7 +300,6 @@ int main(int argc, char **argv)
 
         for(iClient = 0; iClient < State.m_UnitManager.m_PlayerUnits.size(); iClient++)
         {
-            //std::cout << "Player " << iClient << " score " << Global.m_Score[iClient] << "\n";
             std::cout << "Player " << PlayerNames[iClient] << " score " << Global.m_Score[iClient] << "\n";
         }
 
