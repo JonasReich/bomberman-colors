@@ -22,6 +22,7 @@ The 'external' directory contains all external third-party libraries (SDL and SD
 ## Dijkstra Map
 I've added a [custom map](bomber_clone_tcp/dat/dijkstra.ppm) to specifically test bots for correct
 implementation of Dijkstra pathfinding.
+
 ![](bomber_clone_tcp/dat/dijkstra.png)
 
 ## Source Code
