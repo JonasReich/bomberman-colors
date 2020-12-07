@@ -58,8 +58,8 @@ cmake --build ./cmake_build/
 Target architecture (x86 or x64) is detected automatically from your command line environment.
 If you want to switch between Win32 and Win64 builds explicitly, you'll need to also supply the generator + architecture when creating build files:
 ```
-cmake -S ./bomber_clone_tcp -B ./cmake_build/ -G "Visual Studio 16 2019" -A Win32
-cmake -S ./bomber_clone_tcp -B ./cmake_build/ -G "Visual Studio 16 2019" -A x64
+cmake -S ./bomber_clone_tcp -B ./cmake_build_x86/ -G "Visual Studio 16 2019" -A Win32
+cmake -S ./bomber_clone_tcp -B ./cmake_build_x64/ -G "Visual Studio 16 2019" -A x64
 ```
 
 As mentioned above, the project requires SDL2 and SDL2_net, for which prebuilt Win32 and Win64 binaries were embedded.
